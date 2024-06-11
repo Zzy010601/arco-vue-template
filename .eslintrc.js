@@ -46,6 +46,7 @@ module.exports = {
     'vue/padding-line-between-blocks': 1,
     'vue/require-direct-export': 1,
     'vue/multi-word-component-names': 0,
+    'vue/no-unused-components': 0,
     // Allow @ts-ignore comment
     '@typescript-eslint/ban-ts-comment': 0,
     '@typescript-eslint/no-unused-vars': 0,
@@ -72,5 +73,6 @@ module.exports = {
     'no-param-reassign': 0,
     'no-use-before-define': 0,
     'class-methods-use-this': 0,
+    'global-require': 0,
   },
 };

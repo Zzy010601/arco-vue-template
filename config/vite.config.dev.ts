@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-07 15:15:33
+ * @LastEditTime: 2024-06-11 14:26:28
  */
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -33,6 +33,11 @@ export default defineConfig({
       exclude: ['node_modules'],
     }),
   ],
+  css: {
+    postcss: {
+      plugins: [require('tailwindcss'), require('autoprefixer')],
+    },
+  },
   resolve: {
     alias: [
       {
