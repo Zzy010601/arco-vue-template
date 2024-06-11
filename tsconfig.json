@@ -30,7 +30,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
+    "./auto-imports.d.ts",
     "node_modules/@arco-design/web-vue/es/*.ts"
   ],
-  "compileOnSave": false
+  // "compileOnSave": false
 }

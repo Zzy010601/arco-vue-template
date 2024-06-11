@@ -1,3 +1,8 @@
+<!--
+ * @Date: 2024-06-11 13:12:37
+ * @LastEditors: 张子阳
+ * @LastEditTime: 2024-06-11 15:21:38
+-->
 <template>
   <div class="container">
     <div class="logo">
@@ -22,8 +27,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
 import Footer from '@/components/footer/index.vue';
 import logoIcon from '@/assets/icons/arco-logo.svg?url';
 import LoginBanner from './components/banner.vue';
@@ -36,36 +40,16 @@ enum PageEnum {
   Register,
   ForgotPassword,
 }
-export default defineComponent({
-  components: {
-    LoginBanner,
-    LoginForm,
-    RegisterForm,
-    ForgotPasswordForm,
-    Footer,
-  },
-  setup() {
-    const showPage = ref(0);
-    const callLogin = () => {
-      showPage.value = PageEnum.Login;
-    };
-    const callRegister = () => {
-      showPage.value = PageEnum.Register;
-    };
-    const callForgotPassword = () => {
-      showPage.value = PageEnum.ForgotPassword;
-    };
-
-    return {
-      showPage,
-      logoIcon,
-      PageEnum,
-      callLogin,
-      callRegister,
-      callForgotPassword,
-    };
-  },
-});
+const showPage = ref(0);
+const callLogin = () => {
+  showPage.value = PageEnum.Login;
+};
+const callRegister = () => {
+  showPage.value = PageEnum.Register;
+};
+const callForgotPassword = () => {
+  showPage.value = PageEnum.ForgotPassword;
+};
 </script>
 
 <style lang="less" scoped>

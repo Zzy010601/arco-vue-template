@@ -90,14 +90,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, reactive, onMounted } from 'vue';
+<script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import { Message } from '@arco-design/web-vue';
 import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
 import { useUserStore } from '@/store';
 import useLoading from '@/hooks/loading';
-import { LoginData, PhoneLoginData } from '@/api/user';
+import { LoginData } from '@/api/user';
 import logoIcon from '@/assets/icons/arco-logo.svg?url';
 import useCountDown from '@/hooks/countdown';
 import useFormValidator from '@/hooks/form-validator';
@@ -105,122 +104,99 @@ import { sendPhoneAuthCode } from '@/api/send-message';
 
 const USER_NAME = 'username';
 const PASS_WORD = 'remember';
-export default defineComponent({
-  emits: ['callRegister', 'callForgotPassword'],
-  setup(props, context) {
-    // 标签页
-    const loginMode = ref('account');
-    const tabsChange = (value: string) => {
-      loginMode.value = value;
-    };
+const emits = defineEmits(['callRegister', 'callForgotPassword']);
+const loginMode = ref('account');
+const tabsChange = (value: string | number) => {
+  loginMode.value = value as string;
+};
 
-    // 表单页面
-    const phoneLoginRef = ref(null);
-    const { phoneRules } = useFormValidator();
-    const rememberPassword = ref(true);
-    const userInfo = reactive({
-      username: 'admin',
-      password: 'gxyy@123!!!',
-      device: 'PC',
-    });
-    const phoneLogin = reactive({
-      phone: '15233088662',
-      authCode: '',
-    });
+// 表单页面
+const phoneLoginRef = ref(null);
+const { phoneRules } = useFormValidator();
+const rememberPassword = ref(true);
+const userInfo = reactive({
+  username: 'admin',
+  password: 'gxyy@123!!!',
+  device: 'PC',
+});
+const phoneLogin = reactive({
+  phone: '15233088662',
+  authCode: '',
+});
 
-    // 发送短信验证码
-    const { waiting, seconds, countDown } = useCountDown();
-    const sendPhoneCode = () => {
-      const target = phoneLoginRef.value as any;
-      target.validateField('phone', async (phoneError: ValidatedError) => {
-        if (!phoneError) {
-          countDown();
-          await sendPhoneAuthCode({ phone: phoneLogin.phone });
-          Message.success('发送成功');
-        }
-      });
-    };
+// 发送短信验证码
+const { waiting, seconds, countDown } = useCountDown();
+const sendPhoneCode = () => {
+  const target = phoneLoginRef.value as any;
+  target.validateField('phone', async (phoneError: ValidatedError) => {
+    if (!phoneError) {
+      countDown();
+      await sendPhoneAuthCode({ phone: phoneLogin.phone });
+      Message.success('发送成功');
+    }
+  });
+};
 
-    // 记住密码
-    const savePassword = () => {
-      if (rememberPassword.value) {
-        localStorage.setItem(USER_NAME, userInfo.userName);
-        localStorage.setItem(PASS_WORD, window.btoa(userInfo.password));
+// 记住密码
+const savePassword = () => {
+  if (rememberPassword.value) {
+    localStorage.setItem(USER_NAME, userInfo.username);
+    localStorage.setItem(PASS_WORD, window.btoa(userInfo.password));
+  } else {
+    localStorage.removeItem(USER_NAME);
+    localStorage.removeItem(PASS_WORD);
+  }
+};
+
+// 账号登录
+const router = useRouter();
+const userStore = useUserStore();
+const { loading, setLoading } = useLoading();
+const handleSubmit = async ({
+  errors,
+  values,
+}: {
+  errors: Record<string, ValidatedError> | undefined;
+  values: LoginData;
+}) => {
+  if (!errors) {
+    setLoading(true);
+    try {
+      if (loginMode.value === 'account') {
+        await userStore.login(values as LoginData);
       } else {
-        localStorage.removeItem(USER_NAME);
-        localStorage.removeItem(PASS_WORD);
+        // await userStore.phoneLogin(values as PhoneLoginData);
       }
-    };
+      savePassword();
+      const { redirect, ...othersQuery } = router.currentRoute.value.query;
+      router.push({
+        name: 'workplace',
+      });
+      Message.success('欢迎使用');
+    } finally {
+      setLoading(false);
+    }
+  }
+};
 
-    // 账号登录
-    const router = useRouter();
-    const userStore = useUserStore();
-    const { loading, setLoading } = useLoading();
-    const handleSubmit = async ({
-      errors,
-      values,
-    }: {
-      errors: Record<string, ValidatedError> | undefined;
-      values: LoginData | PhoneLoginData;
-    }) => {
-      if (!errors) {
-        setLoading(true);
-        try {
-          if (loginMode.value === 'account') {
-            await userStore.login(values as LoginData);
-          } else {
-            await userStore.phoneLogin(values as PhoneLoginData);
-          }
-          savePassword();
-          const { redirect, ...othersQuery } = router.currentRoute.value.query;
-          router.push({
-            name: 'workplace',
-          });
-          Message.success('欢迎使用');
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
+// 显示注册页面
+const callRegister = () => {
+  emits('callRegister');
+};
 
-    // 显示注册页面
-    const callRegister = () => {
-      context.emit('callRegister');
-    };
+// 显示忘记密码页面
+const callForgotPassword = () => {
+  emits('callForgotPassword');
+};
 
-    // 显示忘记密码页面
-    const callForgotPassword = () => {
-      context.emit('callForgotPassword');
-    };
-
-    onMounted(() => {
-      const username = localStorage.getItem(USER_NAME);
-      const password = localStorage.getItem(PASS_WORD);
-      if (username && password) {
-        userInfo.userName = username;
-        userInfo.password = window.atob(password);
-        rememberPassword.value = true;
-      }
-    });
-
-    return {
-      logoIcon,
-      waiting,
-      seconds,
-      loading,
-      loginMode,
-      userInfo,
-      phoneLogin,
-      phoneRules,
-      phoneLoginRef,
-      rememberPassword,
-      sendPhoneCode,
-      tabsChange,
-      callRegister,
-      callForgotPassword,
-      handleSubmit,
-    };
-  },
+onMounted(() => {
+  const username = localStorage.getItem(USER_NAME);
+  const password = localStorage.getItem(PASS_WORD);
+  if (username && password) {
+    userInfo.username = username;
+    userInfo.password = window.atob(password);
+    rememberPassword.value = true;
+  }
 });
 </script>
 

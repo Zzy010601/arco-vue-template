@@ -26,6 +26,7 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:vue/vue3-recommended',
     'plugin:prettier/recommended',
+    './.eslintrc-auto-import.json',
   ],
   settings: {
     'import/resolver': {
@@ -53,6 +54,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 1,
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-use-before-define': 0,
+    'import/no-unresolved': 0,
     'import/extensions': [
       2,
       'ignorePackages',

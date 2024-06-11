@@ -1,16 +1,16 @@
 /*
  * @Date: 2024-06-04 10:45:26
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-07 15:19:38
+ * @LastEditTime: 2024-06-11 15:32:43
  */
 import type { RouteRecordNormalized } from 'vue-router';
 import { UserState } from '@/store/modules/user/types';
 import { request } from '@/utils/request';
 
 export interface LoginData {
-  username: string;
-  password: string;
-  device: 'PC' | 'mobile';
+  username?: string;
+  password?: string;
+  device?: 'PC' | 'mobile';
 }
 
 export interface LoginRes {
