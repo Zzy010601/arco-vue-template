@@ -13,7 +13,7 @@ const data = Mock.mock({
       'count|2-3': /[0-9]/,
       'status|1': ['online', 'offline'],
       'filterType|1': ['artificial', 'rules'],
-      'createdTime': "@date('yyyy-MM-dd HH:mm:ss')",
+      createdTime: "@date('yyyy-MM-dd HH:mm:ss')",
     },
   ],
 });

@@ -5,7 +5,7 @@
  */
 import Cookies from 'js-cookie';
 
-const TOKEN_KEY = 'contract'
+const TOKEN_KEY = 'contract';
 
 const isLogin = () => {
   return !!Cookies.get(TOKEN_KEY);

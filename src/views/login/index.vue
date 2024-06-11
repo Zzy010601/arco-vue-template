@@ -12,14 +12,8 @@
           @callRegister="callRegister"
           @callForgotPassword="callForgotPassword"
         />
-        <RegisterForm
-          v-else-if="showPage === PageEnum.Register"
-          @callLogin="callLogin"
-        />
-        <ForgotPasswordForm
-          v-else-if="showPage === PageEnum.ForgotPassword"
-          @callLogin="callLogin"
-        />
+        <RegisterForm v-else-if="showPage === PageEnum.Register" @callLogin="callLogin" />
+        <ForgotPasswordForm v-else-if="showPage === PageEnum.ForgotPassword" @callLogin="callLogin" />
       </div>
       <div class="footer">
         <Footer />

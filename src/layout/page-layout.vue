@@ -63,9 +63,7 @@ export default defineComponent({
       return appStore.menuCollapse;
     });
     const paddingStyle = computed(() => {
-      const paddingLeft = menu.value
-        ? { paddingLeft: `${menuWidth.value}px` }
-        : {};
+      const paddingLeft = menu.value ? { paddingLeft: `${menuWidth.value}px` } : {};
       const paddingTop = navbar.value ? { paddingTop: navbarHeight } : {};
       return { ...paddingLeft, ...paddingTop };
     });
@@ -75,9 +73,8 @@ export default defineComponent({
     watch(
       () => userStore.role,
       (roleValue) => {
-        if (roleValue && !permission.accessRouter(route))
-          router.push({ name: 'notFound' });
-      }
+        if (roleValue && !permission.accessRouter(route)) router.push({ name: 'notFound' });
+      },
     );
     return {
       navbar,

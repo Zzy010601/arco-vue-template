@@ -22,9 +22,7 @@ const tooltipItemsHtmlString = (items: ToolTipFormatterParams[]) => {
     .map(
       (el) => `<div class="content-panel">
     <p>
-      <span style="background-color: ${
-        el.color
-      }" class="tooltip-item-icon"></span>
+      <span style="background-color: ${el.color}" class="tooltip-item-icon"></span>
       <span>
       ${el.seriesName}
       </span>
@@ -32,7 +30,7 @@ const tooltipItemsHtmlString = (items: ToolTipFormatterParams[]) => {
     <span class="tooltip-value">
       ${Number(el.value).toLocaleString()}
     </span>
-  </div>`
+  </div>`,
     )
     .join('');
 };

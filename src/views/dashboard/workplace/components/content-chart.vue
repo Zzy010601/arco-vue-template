@@ -43,10 +43,7 @@ export default defineComponent({
     const { loading, setLoading } = useLoading(true);
     const xAxis = ref<string[]>([]);
     const chartsData = ref<number[]>([]);
-    const graphicElements = ref([
-      graphicFactory({ left: '2.6%' }),
-      graphicFactory({ right: 0 }),
-    ]);
+    const graphicElements = ref([graphicFactory({ left: '2.6%' }), graphicFactory({ right: 0 })]);
     const { chartOption } = useChartOption(() => {
       return {
         grid: {

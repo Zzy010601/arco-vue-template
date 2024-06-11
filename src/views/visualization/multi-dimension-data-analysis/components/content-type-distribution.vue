@@ -1,9 +1,5 @@
 <template>
-  <a-card
-    class="general-card"
-    title="内容题材分布"
-    :header-style="{ paddingBottom: 0 }"
-  >
+  <a-card class="general-card" title="内容题材分布" :header-style="{ paddingBottom: 0 }">
     <Chart style="height: 222px" :option="chartOption" />
   </a-card>
 </template>

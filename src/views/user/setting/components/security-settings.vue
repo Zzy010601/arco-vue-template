@@ -41,9 +41,7 @@
         </template>
         <template #description>
           <div class="content">
-            <a-typography-paragraph>
-              已绑定：150******50
-            </a-typography-paragraph>
+            <a-typography-paragraph> 已绑定：150******50 </a-typography-paragraph>
           </div>
           <div class="operation">
             <a-link> 修改 </a-link>

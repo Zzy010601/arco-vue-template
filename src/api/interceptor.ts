@@ -27,7 +27,7 @@ axios.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 // 响应拦截器
@@ -35,11 +35,7 @@ axios.interceptors.response.use(
   (response: AxiosResponse<HttpResponse>) => {
     const res = response.data;
     if (res.code !== 200) {
-      if (
-        [601, 602].includes(res.code) &&
-        response.config.url !== '/api/user/info' &&
-        showMsg
-      ) {
+      if ([601, 602].includes(res.code) && response.config.url !== '/api/user/info' && showMsg) {
         showMsg = false;
         Modal.warning({
           title: '确认注销',
@@ -69,5 +65,5 @@ axios.interceptors.response.use(
       duration: 5 * 1000,
     });
     return Promise.reject(error);
-  }
+  },
 );

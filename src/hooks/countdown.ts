@@ -21,7 +21,7 @@ export default function useCountDown() {
       immediate: false,
       // 是否延时执行定时任务
       immediateCallback: false,
-    }
+    },
   );
   // 开始倒计时
   const countDown = (timer = 60) => {

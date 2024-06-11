@@ -15,9 +15,7 @@ function checkPermission(el: HTMLElement, binding: DirectiveBinding) {
       }
     }
   } else {
-    throw new Error(
-      `need roles! Like v-permission="[${RoleEnum.ADMIN},${RoleEnum.USER}]"`
-    );
+    throw new Error(`need roles! Like v-permission="[${RoleEnum.ADMIN},${RoleEnum.USER}]"`);
   }
 }
 

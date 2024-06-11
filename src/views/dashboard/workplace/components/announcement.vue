@@ -1,10 +1,5 @@
 <template>
-  <a-card
-    class="general-card"
-    title="公告"
-    :header-style="{ paddingBottom: '0' }"
-    :body-style="{ paddingTop: '15px' }"
-  >
+  <a-card class="general-card" title="公告" :header-style="{ paddingBottom: '0' }" :body-style="{ paddingTop: '15px' }">
     <template #extra>
       <a-link> 查看更多 </a-link>
     </template>

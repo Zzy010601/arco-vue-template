@@ -2,12 +2,7 @@
   <div class="container">
     <Breadcrumb :items="['结果页', '失败页']" />
     <div class="wrapper">
-      <a-result
-        class="result"
-        status="error"
-        title="提交失败"
-        subtitle="表单提交失败，请重试。"
-      >
+      <a-result class="result" status="error" title="提交失败" subtitle="表单提交失败，请重试。">
         <template #extra>
           <a-space class="operation-wrap" :size="16">
             <a-button key="again" type="secondary"> 回到首页 </a-button>
@@ -17,9 +12,7 @@
       </a-result>
 
       <div class="details-wrapper">
-        <a-typography-title :heading="6" style="margin-top: 0">
-          错误详情
-        </a-typography-title>
+        <a-typography-title :heading="6" style="margin-top: 0"> 错误详情 </a-typography-title>
         <a-typography-paragraph style="margin-bottom: 0">
           <ol>
             <li>
@@ -29,7 +22,7 @@
                 备案流程
               </a-link>
             </li>
-            <li> 你的用户组不具有进行此操作的权限； </li>
+            <li>你的用户组不具有进行此操作的权限；</li>
           </ol>
         </a-typography-paragraph>
       </div>

@@ -1,11 +1,6 @@
 <script lang="tsx">
 import { defineComponent, ref, watch, h, compile, computed } from 'vue';
-import {
-  useRouter,
-  useRoute,
-  RouteRecordRaw,
-  RouteRecordNormalized,
-} from 'vue-router';
+import { useRouter, useRoute, RouteRecordRaw, RouteRecordNormalized } from 'vue-router';
 import { useAppStore } from '@/store';
 import usePermission from '@/hooks/permission';
 
@@ -18,9 +13,7 @@ export default defineComponent({
     const route = useRoute();
     const collapsed = ref(false);
     const appRoute = computed(() => {
-      return router
-        .getRoutes()
-        .find((el) => el.name === 'root') as RouteRecordNormalized;
+      return router.getRoutes().find((el) => el.name === 'root') as RouteRecordNormalized;
     });
     const menuTree = computed(() => {
       const copyRouter = JSON.parse(JSON.stringify(appRoute.value.children));
@@ -74,7 +67,7 @@ export default defineComponent({
       },
       {
         immediate: true,
-      }
+      },
     );
     watch(
       () => appStore.menuCollapse,
@@ -83,7 +76,7 @@ export default defineComponent({
       },
       {
         immediate: true,
-      }
+      },
     );
     const setCollapse = (val: boolean) => {
       appStore.updateSettings({ menuCollapse: val });
@@ -100,8 +93,7 @@ export default defineComponent({
               <a-sub-menu
                 key={element?.name}
                 v-slots={{
-                  title: () =>
-                    h(compile(`${icon}${element?.meta?.locale || ''}`)),
+                  title: () => h(compile(`${icon}${element?.meta?.locale || ''}`)),
                 }}
               >
                 {element?.children?.map((elem) => {

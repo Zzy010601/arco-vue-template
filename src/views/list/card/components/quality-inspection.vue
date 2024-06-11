@@ -1,8 +1,6 @@
 <template>
   <div class="list-wrap">
-    <a-typography-title class="block-title" :heading="6">
-      内容质检
-    </a-typography-title>
+    <a-typography-title class="block-title" :heading="6"> 内容质检 </a-typography-title>
     <a-row class="list-row" :gutter="24">
       <a-col :span="6" class="list-col">
         <div class="card-wrap empty-wrap">
@@ -15,12 +13,7 @@
           </a-card>
         </div>
       </a-col>
-      <a-col
-        v-for="item in renderData"
-        :key="item.id"
-        :span="6"
-        class="list-col"
-      >
+      <a-col v-for="item in renderData" :key="item.id" :span="6" class="list-col">
         <CardWrap
           :loading="loading"
           :title="item.title"
@@ -32,18 +25,10 @@
           close-txt="删除"
           :show-tag="false"
         >
-          <a-descriptions
-            style="margin-top: 16px"
-            :data="item.data"
-            layout="inline-horizontal"
-            :column="2"
-          />
+          <a-descriptions style="margin-top: 16px" :data="item.data" layout="inline-horizontal" :column="2" />
           <template #skeleton>
             <a-skeleton :animation="true">
-              <a-skeleton-line
-                :widths="['50%', '50%', '100%', '40%']"
-                :rows="4"
-              />
+              <a-skeleton-line :widths="['50%', '50%', '100%', '40%']" :rows="4" />
               <a-skeleton-line :widths="['40%']" :rows="1" />
             </a-skeleton>
           </template>
@@ -65,10 +50,7 @@ export default defineComponent({
   },
   setup() {
     const defaultValue: ServiceRecord[] = new Array(3).fill({});
-    const { loading, response: renderData } = useRequest<ServiceRecord[]>(
-      queryInspectionList,
-      defaultValue
-    );
+    const { loading, response: renderData } = useRequest<ServiceRecord[]>(queryInspectionList, defaultValue);
     return {
       loading,
       renderData,

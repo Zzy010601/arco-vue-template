@@ -3,7 +3,7 @@
   "description": "The front template for Vue3, Simplified in Arco Design Pro",
   "version": "1.0.0",
   "private": true,
-  "author": "ma_ying_fa",
+  "author": "zhangziyang",
   "license": "MIT",
   "scripts": {
     "dev": "vite --config ./config/vite.config.dev.ts",

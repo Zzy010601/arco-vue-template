@@ -13,53 +13,32 @@
             <a-row :gutter="16">
               <a-col :span="8">
                 <a-form-item field="number" label="集合编号">
-                  <a-input
-                    v-model="formModel.number"
-                    placeholder="请输入集合编号"
-                  />
+                  <a-input v-model="formModel.number" placeholder="请输入集合编号" />
                 </a-form-item>
               </a-col>
               <a-col :span="8">
                 <a-form-item field="name" label="集合名称">
-                  <a-input
-                    v-model="formModel.name"
-                    placeholder="请输入集合名称"
-                  />
+                  <a-input v-model="formModel.name" placeholder="请输入集合名称" />
                 </a-form-item>
               </a-col>
               <a-col :span="8">
                 <a-form-item field="contentType" label="内容体裁">
-                  <a-select
-                    v-model="formModel.contentType"
-                    :options="contentTypeOptions"
-                    placeholder="全部"
-                  />
+                  <a-select v-model="formModel.contentType" :options="contentTypeOptions" placeholder="全部" />
                 </a-form-item>
               </a-col>
               <a-col :span="8">
                 <a-form-item field="filterType" label="筛选方式">
-                  <a-select
-                    v-model="formModel.filterType"
-                    :options="filterTypeOptions"
-                    placeholder="全部"
-                  />
+                  <a-select v-model="formModel.filterType" :options="filterTypeOptions" placeholder="全部" />
                 </a-form-item>
               </a-col>
               <a-col :span="8">
                 <a-form-item field="createdTime" label="创建时间">
-                  <a-range-picker
-                    v-model="formModel.createdTime"
-                    style="width: 100%"
-                  />
+                  <a-range-picker v-model="formModel.createdTime" style="width: 100%" />
                 </a-form-item>
               </a-col>
               <a-col :span="8">
                 <a-form-item field="status" label="状态">
-                  <a-select
-                    v-model="formModel.status"
-                    :options="statusOptions"
-                    placeholder="全部"
-                  />
+                  <a-select v-model="formModel.status" :options="statusOptions" placeholder="全部" />
                 </a-form-item>
               </a-col>
             </a-row>
@@ -232,9 +211,7 @@ export default defineComponent({
         value: 'offline',
       },
     ]);
-    const fetchData = async (
-      params: PolicyParams = { current: 1, pageSize: 20 }
-    ) => {
+    const fetchData = async (params: PolicyParams = { current: 1, pageSize: 20 }) => {
       setLoading(true);
       try {
         const { data } = await queryPolicyList(params);

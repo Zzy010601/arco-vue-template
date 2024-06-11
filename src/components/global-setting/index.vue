@@ -41,9 +41,7 @@ export default defineComponent({
         type: 'number',
       },
     ];
-    const othersOpts = [
-      { name: '色弱模式', key: 'colorWeek', defaultVal: false },
-    ];
+    const othersOpts = [{ name: '色弱模式', key: 'colorWeek', defaultVal: false }];
 
     const cancel = () => {
       appStore.updateSettings({ globalSettings: false });

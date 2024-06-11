@@ -4,19 +4,8 @@
       <img :src="logoIcon" alt="logo" />
       <span>Arco Design Web</span>
     </div>
-    <a-form
-      ref="forgotFormRef"
-      :model="userInfo"
-      size="large"
-      layout="vertical"
-      @submit="handleSubmit"
-    >
-      <a-form-item
-        field="email"
-        :rules="emailRules"
-        :validate-trigger="['change', 'blur']"
-        hide-label
-      >
+    <a-form ref="forgotFormRef" :model="userInfo" size="large" layout="vertical" @submit="handleSubmit">
+      <a-form-item field="email" :rules="emailRules" :validate-trigger="['change', 'blur']" hide-label>
         <a-input
           v-model="userInfo.email"
           placeholder="请输入邮箱地址"
@@ -37,22 +26,13 @@
         :validate-trigger="['change', 'blur']"
         hide-label
       >
-        <a-input
-          v-model="userInfo.authCode"
-          placeholder="请输入验证码"
-          @keyup.enter="handleSubmit"
-        >
+        <a-input v-model="userInfo.authCode" placeholder="请输入验证码" @keyup.enter="handleSubmit">
           <template #prefix>
             <icon-safe />
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item
-        field="newPassword"
-        :rules="passwordRules"
-        :validate-trigger="['change', 'blur']"
-        hide-label
-      >
+      <a-form-item field="newPassword" :rules="passwordRules" :validate-trigger="['change', 'blur']" hide-label>
         <a-input-password
           v-model="userInfo.newPassword"
           autocomplete="new-password"
@@ -66,9 +46,7 @@
         </a-input-password>
       </a-form-item>
       <a-space :size="16" direction="vertical">
-        <a-button type="primary" html-type="submit" long :loading="loading">
-          重置密码
-        </a-button>
+        <a-button type="primary" html-type="submit" long :loading="loading"> 重置密码 </a-button>
         <a-button type="outline" long @click="callLogin"> 返回 </a-button>
       </a-space>
     </a-form>

@@ -3,17 +3,9 @@
     <a-card :bordered="false" :style="cardStyle">
       <div class="content-wrap">
         <div class="content">
-          <a-statistic
-            :title="title"
-            :value="renderData.count"
-            :value-from="0"
-            animation
-            show-group-separator
-          />
+          <a-statistic :title="title" :value="renderData.count" :value-from="0" animation show-group-separator />
           <div class="desc">
-            <a-typography-text type="secondary" class="label">
-              较昨日
-            </a-typography-text>
+            <a-typography-text type="secondary" class="label"> 较昨日 </a-typography-text>
             <a-typography-text type="danger">
               {{ renderData.growth }}
               <icon-arrow-rise />
@@ -31,11 +23,7 @@
 <script lang="ts">
 import { defineComponent, ref, PropType, CSSProperties } from 'vue';
 import useLoading from '@/hooks/loading';
-import {
-  queryPublicOpinionAnalysis,
-  PublicOpinionAnalysis,
-  PublicOpinionAnalysisRes,
-} from '@/api/visualization';
+import { queryPublicOpinionAnalysis, PublicOpinionAnalysis, PublicOpinionAnalysisRes } from '@/api/visualization';
 import useChartOption from '@/hooks/chart-option';
 
 const barChartOptionsFactory = () => {
@@ -197,12 +185,9 @@ export default defineComponent({
   },
   setup(props) {
     const { loading, setLoading } = useLoading(true);
-    const { chartOption: lineChartOption, data: lineData } =
-      lineChartOptionsFactory();
-    const { chartOption: barChartOption, data: barData } =
-      barChartOptionsFactory();
-    const { chartOption: pieChartOption, data: pieData } =
-      pieChartOptionsFactory();
+    const { chartOption: lineChartOption, data: lineData } = lineChartOptionsFactory();
+    const { chartOption: barChartOption, data: barData } = barChartOptionsFactory();
+    const { chartOption: pieChartOption, data: pieData } = pieChartOptionsFactory();
     const renderData = ref<PublicOpinionAnalysisRes>({
       count: 0,
       growth: 0,

@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-07 16:09:20
+ * @LastEditTime: 2024-06-11 10:24:22
  */
 import { createRouter, createWebHashHistory, LocationQueryRaw } from 'vue-router';
 import NProgress from 'nprogress';
@@ -43,8 +43,6 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  console.log('sss', to);
-
   NProgress.start();
   const userStore = useUserStore();
 

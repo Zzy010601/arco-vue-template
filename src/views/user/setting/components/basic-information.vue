@@ -1,11 +1,5 @@
 <template>
-  <a-form
-    ref="formRef"
-    :model="formData"
-    class="form"
-    :label-col-props="{ span: 3 }"
-    :wrapper-col-props="{ span: 21 }"
-  >
+  <a-form ref="formRef" :model="formData" class="form" :label-col-props="{ span: 3 }" :wrapper-col-props="{ span: 21 }">
     <a-form-item
       field="email"
       label="邮箱"
@@ -54,12 +48,7 @@
         },
       ]"
     >
-      <a-cascader
-        v-model="formData.area"
-        placeholder="请选择"
-        :options="CityAreas.address"
-        allow-search
-      />
+      <a-cascader v-model="formData.area" placeholder="请选择" :options="CityAreas.address" allow-search />
     </a-form-item>
     <a-form-item field="address" label="具体地址">
       <a-input v-model="formData.address" placeholder="请输入您的地址" />
@@ -75,10 +64,7 @@
       ]"
       row-class="keep-margin"
     >
-      <a-textarea
-        v-model="formData.profile"
-        placeholder="请输入您的个人简介，最多不超过200字。"
-      />
+      <a-textarea v-model="formData.profile" placeholder="请输入您的个人简介，最多不超过200字。" />
     </a-form-item>
     <a-form-item>
       <a-space>

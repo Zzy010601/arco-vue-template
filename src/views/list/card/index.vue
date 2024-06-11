@@ -23,10 +23,7 @@
                 </a-tab-pane>
               </a-tabs>
             </a-col>
-            <a-input-search
-              placeholder="搜索"
-              style="position: absolute; top: 60px; right: 10px; width: 240px"
-            />
+            <a-input-search placeholder="搜索" style="position: absolute; top: 60px; right: 10px; width: 240px" />
           </a-row>
         </a-card>
       </a-col>

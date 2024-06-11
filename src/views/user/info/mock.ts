@@ -70,7 +70,7 @@ setupMock({
           description: units[index].description,
           peopleNumber: Mock.Random.natural(10, 1000),
           contributors,
-        }))
+        })),
       );
     });
 
@@ -81,9 +81,8 @@ setupMock({
           id: index,
           title: '发布了项目 Arco Design System',
           description: '企业级产品设计系统',
-          avatar:
-            '//lf1-xgcdn-tos.pstatp.com/obj/vcloud/vadmin/start.8e0e4855ee346a46ccff8ff3e24db27b.png',
-        }))
+          avatar: '//lf1-xgcdn-tos.pstatp.com/obj/vcloud/vadmin/start.8e0e4855ee346a46ccff8ff3e24db27b.png',
+        })),
       );
     });
 
@@ -139,7 +138,7 @@ setupMock({
             '今日头条产品设计团队',
           ],
           'peopleNumber|1-10': 100,
-          'avatar': '@dataImage(70x70,团队头像)',
+          avatar: '@dataImage(70x70,团队头像)',
         },
       ],
     });

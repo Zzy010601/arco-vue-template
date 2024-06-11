@@ -3,12 +3,7 @@
     <div class="left-side">
       <a-space>
         <img class="navbar-logo" :src="logImage" alt="logo" />
-        <a-typography-title
-          :style="{ margin: 0, fontSize: '18px' }"
-          :heading="5"
-        >
-          Arco Design Web
-        </a-typography-title>
+        <a-typography-title :style="{ margin: 0, fontSize: '18px' }" :heading="5"> Arco Design Web </a-typography-title>
       </a-space>
     </div>
     <ul class="right-side">
@@ -16,12 +11,7 @@
         <a-tooltip content="消息通知">
           <div class="message-box-trigger">
             <a-badge :count="9" dot>
-              <a-button
-                class="nav-btn"
-                type="outline"
-                :shape="'circle'"
-                @click="setPopoverVisible"
-              >
+              <a-button class="nav-btn" type="outline" :shape="'circle'" @click="setPopoverVisible">
                 <icon-notification />
               </a-button>
             </a-badge>
@@ -40,17 +30,8 @@
         </a-popover>
       </li>
       <li>
-        <a-tooltip
-          :content="
-            theme === 'light' ? '点击切换为暗黑模式' : '点击切换为亮色模式'
-          "
-        >
-          <a-button
-            class="nav-btn"
-            type="outline"
-            :shape="'circle'"
-            @click="toggleTheme"
-          >
+        <a-tooltip :content="theme === 'light' ? '点击切换为暗黑模式' : '点击切换为亮色模式'">
+          <a-button class="nav-btn" type="outline" :shape="'circle'" @click="toggleTheme">
             <template #icon>
               <icon-moon-fill v-if="theme === 'dark'" />
               <icon-sun-fill v-else />
@@ -60,12 +41,7 @@
       </li>
       <li>
         <a-tooltip content="页面配置">
-          <a-button
-            class="nav-btn"
-            type="outline"
-            :shape="'circle'"
-            @click="setVisible"
-          >
+          <a-button class="nav-btn" type="outline" :shape="'circle'" @click="setVisible">
             <template #icon>
               <icon-settings />
             </template>

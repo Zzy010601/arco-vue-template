@@ -6,14 +6,7 @@
           <a-avatar :size="54" class="col-avatar">
             <img alt="icon" :src="infoImage" />
           </a-avatar>
-          <a-statistic
-            title="线上总内容"
-            :value="373.5"
-            :precision="1"
-            :value-from="0"
-            animation
-            show-group-separator
-          >
+          <a-statistic title="线上总内容" :value="373.5" :precision="1" :value-from="0" animation show-group-separator>
             <template #suffix> W+ <span class="unit"> 个 </span> </template>
           </a-statistic>
         </a-space>
@@ -23,13 +16,7 @@
           <a-avatar :size="54" class="col-avatar">
             <img alt="icon" :src="contentImage" />
           </a-avatar>
-          <a-statistic
-            title="投放中内容"
-            :value="368"
-            :value-from="0"
-            animation
-            show-group-separator
-          >
+          <a-statistic title="投放中内容" :value="368" :value-from="0" animation show-group-separator>
             <template #suffix>
               <span class="unit"> 个 </span>
             </template>
@@ -41,13 +28,7 @@
           <a-avatar :size="54" class="col-avatar">
             <img alt="icon" :src="messageImage" />
           </a-avatar>
-          <a-statistic
-            title="日新增评论"
-            :value="8874"
-            :value-from="0"
-            animation
-            show-group-separator
-          >
+          <a-statistic title="日新增评论" :value="8874" :value-from="0" animation show-group-separator>
             <template #suffix>
               <span class="unit"> 个 </span>
             </template>
@@ -59,13 +40,7 @@
           <a-avatar :size="54" class="col-avatar">
             <img alt="icon" :src="riseImage" />
           </a-avatar>
-          <a-statistic
-            title="较昨日新增"
-            :value="2.8"
-            :precision="1"
-            :value-from="0"
-            animation
-          >
+          <a-statistic title="较昨日新增" :value="2.8" :precision="1" :value-from="0" animation>
             <template #suffix> % <icon-caret-up class="up-icon" /> </template>
           </a-statistic>
         </a-space>

@@ -5,20 +5,14 @@
     </template>
     <a-descriptions layout="horizontal" :data="dataStatus" :column="2">
       <template #label="{ label }">
-        <span
-          v-if="['mainstream', 'hotStandby', 'coldStandby'].includes(label)"
-        >
-          <a-typography-text style="padding-right: 8px">
-            帧率
-          </a-typography-text>
+        <span v-if="['mainstream', 'hotStandby', 'coldStandby'].includes(label)">
+          <a-typography-text style="padding-right: 8px"> 帧率 </a-typography-text>
           码率
         </span>
         <span v-else>{{ label }}</span>
       </template>
     </a-descriptions>
-    <a-typography-title style="margin-bottom: 16px" :heading="6">
-      画面信息
-    </a-typography-title>
+    <a-typography-title style="margin-bottom: 16px" :heading="6"> 画面信息 </a-typography-title>
     <a-descriptions layout="horizontal" :data="dataPicture" :column="2" />
   </a-card>
 </template>

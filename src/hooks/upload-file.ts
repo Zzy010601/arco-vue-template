@@ -8,10 +8,7 @@ export default function useUploadFile() {
     token: getToken(),
   };
   const avatarValidated = (file: File) => {
-    const isJpgOrPng =
-      file.type === 'image/jpeg' ||
-      file.type === 'image/png' ||
-      file.type === 'image/gif';
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
     if (!isJpgOrPng) {
       Message.error('只能上传jpg、png或gif类型的图片');
     }

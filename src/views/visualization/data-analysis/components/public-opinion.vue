@@ -1,9 +1,5 @@
 <template>
-  <a-card
-    class="general-card"
-    title="舆情分析"
-    :header-style="{ paddingBottom: '12px' }"
-  >
+  <a-card class="general-card" title="舆情分析" :header-style="{ paddingBottom: '12px' }">
     <a-row :gutter="12">
       <a-col :span="6">
         <ChainItem

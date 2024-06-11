@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="header"
-    :style="{ backgroundImage: 'url(' + userInfoBackgroundImage + ')' }"
-  >
+  <div class="header" :style="{ backgroundImage: 'url(' + userInfoBackgroundImage + ')' }">
     <a-space class="user-card" :size="10" direction="vertical" align="center">
       <a-avatar
         :size="64"
