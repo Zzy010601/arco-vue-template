@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-11 14:27:49
+ * @LastEditTime: 2024-06-11 15:35:27
  */
 import { createApp } from 'vue';
 import ArcoVue from '@arco-design/web-vue';
@@ -13,6 +13,7 @@ import directive from './directive';
 import App from './App.vue';
 import '@arco-design/web-vue/dist/arco.css';
 import '@/assets/style/index.less';
+import '@/assets/style/global.less';
 import '@/api/interceptor';
 // import './mock';
 

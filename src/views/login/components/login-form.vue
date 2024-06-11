@@ -40,10 +40,10 @@
           <a-space :size="16" direction="vertical">
             <div class="login-form-password-actions">
               <a-checkbox v-model="rememberPassword"> 自动登录 </a-checkbox>
-              <a-link @click="callForgotPassword"> 忘记密码 </a-link>
+              <!-- <a-link @click="callForgotPassword"> 忘记密码 </a-link> -->
             </div>
             <a-button type="primary" html-type="submit" long :loading="loading"> 登录 </a-button>
-            <a-button type="outline" long @click="callRegister"> 注册账号 </a-button>
+            <!-- <a-button type="outline" long @click="callRegister"> 注册账号 </a-button> -->
           </a-space>
         </a-form>
       </a-tab-pane>
@@ -77,12 +77,7 @@
             </a-input>
           </a-form-item>
           <a-space :size="16" direction="vertical">
-            <div class="login-form-password-actions">
-              <a-checkbox v-model="rememberPassword"> 自动登录 </a-checkbox>
-              <a-link @click="callForgotPassword"> 忘记密码 </a-link>
-            </div>
             <a-button type="primary" html-type="submit" long :loading="loading"> 登录 </a-button>
-            <a-button type="outline" long @click="callRegister"> 注册账号 </a-button>
           </a-space>
         </a-form>
       </a-tab-pane>
@@ -203,12 +198,13 @@ onMounted(() => {
 <style lang="less" scoped>
 .login-form {
   &-wrapper {
-    width: 550px;
+    width: 450px;
+    height: 300px;
     text-align: center;
   }
 
   &-title {
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     color: var(--color-text-1);
     font-weight: 600;
     font-size: 32px;
@@ -239,10 +235,5 @@ onMounted(() => {
   .arco-tabs-nav-tab {
     justify-content: center;
   }
-}
-
-:deep(.arco-form) {
-  width: 420px;
-  margin: 0 auto;
 }
 </style>

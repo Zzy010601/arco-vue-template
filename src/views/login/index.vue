@@ -1,17 +1,17 @@
 <!--
  * @Date: 2024-06-11 13:12:37
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-11 15:21:38
+ * @LastEditTime: 2024-06-11 15:57:20
 -->
 <template>
-  <div class="container">
-    <div class="logo">
+  <div class="flex h-screen">
+    <div class="fixed z-10 inline-flex items-center top-6 left-5">
       <img :src="logoIcon" alt="logo" />
-      <div class="logo-text">Arco Design Web</div>
+      <div class="mx-1 text-xl text-neutral-100">Arco Design Web</div>
     </div>
     <LoginBanner />
-    <div class="content">
-      <div class="content-inner">
+    <div class="relative flex items-center justify-center flex-1 pb-10">
+      <div>
         <LoginForm
           v-if="showPage === PageEnum.Login"
           @callRegister="callRegister"
@@ -20,7 +20,7 @@
         <RegisterForm v-else-if="showPage === PageEnum.Register" @callLogin="callLogin" />
         <ForgotPasswordForm v-else-if="showPage === PageEnum.ForgotPassword" @callLogin="callLogin" />
       </div>
-      <div class="footer">
+      <div class="absolute bottom-0 right-0 w-full">
         <Footer />
       </div>
     </div>
@@ -53,45 +53,8 @@ const callForgotPassword = () => {
 </script>
 
 <style lang="less" scoped>
-.container {
-  display: flex;
-  height: 100vh;
-
-  .banner {
-    width: 550px;
-    background: linear-gradient(163.85deg, #1d2129 0%, #00308f 100%);
-  }
-
-  .content {
-    position: relative;
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 40px;
-  }
-
-  .footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-  }
-}
-
-.logo {
-  position: fixed;
-  top: 24px;
-  left: 22px;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-
-  &-text {
-    margin-right: 4px;
-    margin-left: 4px;
-    color: var(--color-fill-1);
-    font-size: 20px;
-  }
+.banner {
+  width: 550px;
+  background: linear-gradient(163.85deg, #1d2129 0%, #00308f 100%);
 }
 </style>
