@@ -13,10 +13,10 @@ export default defineComponent({
     const route = useRoute();
     const collapsed = ref(false);
     const appRoute = computed(() => {
-      return router.getRoutes().find((el) => el.name === 'root') as RouteRecordNormalized;
+      return router.getRoutes();
     });
     const menuTree = computed(() => {
-      const copyRouter = JSON.parse(JSON.stringify(appRoute.value.children));
+      const copyRouter = JSON.parse(JSON.stringify(appRoute.value));
       function travel(_routes: RouteRecordRaw[], layer: number) {
         if (!_routes) return null;
         const collector: any = _routes.map((element) => {
@@ -61,7 +61,8 @@ export default defineComponent({
       route,
       (newVal) => {
         if (newVal.meta.requiresAuth) {
-          const key = newVal.matched[2]?.name as string;
+          const key = newVal.matched[1]?.name as string;
+          console.log(key, newVal);
           selectedKey.value = [key];
         }
       },
@@ -83,7 +84,7 @@ export default defineComponent({
     };
 
     const renderSubMenu = () => {
-      function travel(_route: RouteRecordRaw[], nodes = []) {
+      function travel(_route: RouteRecordRaw[], nodes: any[]) {
         if (_route) {
           _route.forEach((element) => {
             // This is demo, modify nodes as needed
@@ -100,7 +101,7 @@ export default defineComponent({
                   return (
                     <a-menu-item key={elem.name} onClick={() => goto(elem)}>
                       {elem?.meta?.locale || ''}
-                      {travel(elem.children ?? [])}
+                      {travel(elem.children ?? [], [])}
                     </a-menu-item>
                   );
                 })}
@@ -111,7 +112,7 @@ export default defineComponent({
         }
         return nodes;
       }
-      return travel(menuTree.value);
+      return travel(menuTree.value, []);
     };
     return () => (
       <a-menu

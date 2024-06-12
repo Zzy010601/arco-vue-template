@@ -1,9 +1,15 @@
+/*
+ * @Date: 2024-06-07 16:34:33
+ * @LastEditors: 张子阳
+ * @LastEditTime: 2024-06-12 09:38:50
+ */
 import { RoleEnum } from '@/enums/RoleEnum';
+import PageLayout from '@/layout/PageLayout.vue';
 
 export default {
   path: '/exception',
   name: 'exception',
-  component: () => import('@/views/exception/index.vue'),
+  component: PageLayout,
   meta: {
     locale: '异常页',
     requiresAuth: true,
@@ -11,7 +17,7 @@ export default {
   },
   children: [
     {
-      path: '/403',
+      path: '403',
       name: '403',
       component: () => import('@/views/exception/403/index.vue'),
       meta: {
@@ -21,7 +27,7 @@ export default {
       },
     },
     {
-      path: '/404',
+      path: '404',
       name: '404',
       component: () => import('@/views/exception/404/index.vue'),
       meta: {
@@ -31,7 +37,7 @@ export default {
       },
     },
     {
-      path: '/500',
+      path: '500',
       name: '500',
       component: () => import('@/views/exception/500/index.vue'),
       meta: {

@@ -22,7 +22,7 @@
         </a-layout-sider>
         <a-layout class="layout-content" :style="paddingStyle">
           <a-layout-content>
-            <router-view />
+            <Content />
           </a-layout-content>
           <Footer v-if="footer" />
         </a-layout>
@@ -31,62 +31,43 @@
   </a-layout>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+<script setup lang="ts">
 import { useAppStore, useUserStore } from '@/store';
 import NavBar from '@/components/navbar/index.vue';
 import Menu from '@/components/menu/index.vue';
 import Footer from '@/components/footer/index.vue';
 import usePermission from '@/hooks/permission';
+import Content from './Content.vue';
 
-export default defineComponent({
-  components: {
-    NavBar,
-    Menu,
-    Footer,
-  },
-  setup() {
-    const appStore = useAppStore();
-    const userStore = useUserStore();
-    const router = useRouter();
-    const route = useRoute();
-    const permission = usePermission();
-    const navbarHeight = `60px`;
-    const navbar = computed(() => appStore.navbar);
-    const menu = computed(() => appStore.menu);
-    const footer = computed(() => appStore.footer);
-    const menuWidth = computed(() => {
-      return appStore.menuCollapse ? 48 : appStore.menuWidth;
-    });
-    const collapse = computed(() => {
-      return appStore.menuCollapse;
-    });
-    const paddingStyle = computed(() => {
-      const paddingLeft = menu.value ? { paddingLeft: `${menuWidth.value}px` } : {};
-      const paddingTop = navbar.value ? { paddingTop: navbarHeight } : {};
-      return { ...paddingLeft, ...paddingTop };
-    });
-    const setCollapsed = (val: boolean) => {
-      appStore.updateSettings({ menuCollapse: val });
-    };
-    watch(
-      () => userStore.role,
-      (roleValue) => {
-        if (roleValue && !permission.accessRouter(route)) router.push({ name: 'notFound' });
-      },
-    );
-    return {
-      navbar,
-      menu,
-      footer,
-      menuWidth,
-      paddingStyle,
-      collapse,
-      setCollapsed,
-    };
-  },
+const appStore = useAppStore();
+const userStore = useUserStore();
+const router = useRouter();
+const route = useRoute();
+const permission = usePermission();
+const navbarHeight = `60px`;
+const navbar = computed(() => appStore.navbar);
+const menu = computed(() => appStore.menu);
+const footer = computed(() => appStore.footer);
+const menuWidth = computed(() => {
+  return appStore.menuCollapse ? 48 : appStore.menuWidth;
 });
+const collapse = computed(() => {
+  return appStore.menuCollapse;
+});
+const paddingStyle = computed(() => {
+  const paddingLeft = menu.value ? { paddingLeft: `${menuWidth.value}px` } : {};
+  const paddingTop = navbar.value ? { paddingTop: navbarHeight } : {};
+  return { ...paddingLeft, ...paddingTop };
+});
+const setCollapsed = (val: boolean) => {
+  appStore.updateSettings({ menuCollapse: val });
+};
+watch(
+  () => userStore.role,
+  (roleValue) => {
+    if (roleValue && !permission.accessRouter(route)) router.push({ name: 'notFound' });
+  },
+);
 </script>
 
 <style scoped lang="less">

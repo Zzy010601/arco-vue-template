@@ -164,9 +164,7 @@ const handleSubmit = async ({
       }
       savePassword();
       const { redirect, ...othersQuery } = router.currentRoute.value.query;
-      router.push({
-        name: 'workplace',
-      });
+      router.push('/dashboard/workplace');
       Message.success('欢迎使用');
     } finally {
       setLoading(false);

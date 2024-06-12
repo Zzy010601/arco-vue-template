@@ -70,7 +70,7 @@ module.exports = {
     'prefer-regex-literals': 0,
     'import/no-extraneous-dependencies': 0,
     'import/prefer-default-export': 0,
-    'no-console': 1,
+    'no-console': 0,
     'no-shadow': 0,
     'no-param-reassign': 0,
     'no-use-before-define': 0,

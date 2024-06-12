@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="w-full px-5">
     <Breadcrumb :items="['列表页', '查询表格']" />
     <a-card class="general-card" title="查询表格">
       <a-row>
@@ -161,7 +161,7 @@ const generateFormModel = () => {
     name: '',
     contentType: '',
     filterType: '',
-    createdTime: [],
+    createdTime: [] as any[],
     status: '',
   };
 };

@@ -1,5 +1,10 @@
+<!--
+ * @Date: 2024-06-11 13:12:37
+ * @LastEditors: 张子阳
+ * @LastEditTime: 2024-06-12 10:10:18
+-->
 <template>
-  <div class="container">
+  <div class="w-full px-5">
     <Breadcrumb :items="['列表页', '卡片列表']" />
     <a-row :gutter="20" align="stretch">
       <a-col :span="24">

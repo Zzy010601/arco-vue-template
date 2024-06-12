@@ -1,14 +1,13 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-11 10:24:22
+ * @LastEditTime: 2024-06-12 09:49:51
  */
 import { createRouter, createWebHashHistory, LocationQueryRaw } from 'vue-router';
 import NProgress from 'nprogress';
 import { useUserStore } from '@/store';
 import 'nprogress/nprogress.css';
 import usePermission from '@/hooks/permission';
-import PageLayout from '@/layout/page-layout.vue';
 import { isLogin } from '@/utils/auth';
 import Login from './modules/login';
 import appRoutes from './modules';
@@ -22,12 +21,7 @@ const router = createRouter({
       redirect: 'login',
     },
     Login,
-    {
-      name: 'root',
-      path: '/',
-      component: PageLayout,
-      children: appRoutes,
-    },
+    ...appRoutes,
     {
       path: '/:pathMatch(.*)*',
       name: 'notFound',
