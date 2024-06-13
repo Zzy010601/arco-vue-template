@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-07 16:34:33
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 09:42:56
+ * @LastEditTime: 2024-06-13 15:02:46
 -->
 <template>
   <a-breadcrumb class="container-breadcrumb">
@@ -31,7 +31,6 @@ const props = withDefaults(defineProps<BreadcrumbProps>(), {
 });
 const router = useRouter();
 const route = useRoute();
-console.log(route, props.items);
 </script>
 
 <style scoped lang="less">

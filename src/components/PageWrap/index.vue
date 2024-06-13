@@ -1,14 +1,14 @@
 <!--
  * @Date: 2024-06-12 15:45:15
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 10:49:12
+ * @LastEditTime: 2024-06-13 15:31:54
 -->
 <template>
   <div class="w-full h-full px-4 pb-4" :class="!showBreadcrumb && 'pt-4'">
     <!-- 面包屑 -->
     <Breadcrumb v-show="showBreadcrumb" :items="breadItem" />
     <!-- 内容区域 -->
-    <a-card :style="{ height }" :body-style="{ height: '100%' }">
+    <a-card :style="{ height }" :body-style="{ height: '100%' }" :bordered="false">
       <slot></slot>
     </a-card>
   </div>
@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 interface WrapProps {
-  showBreadcrumb: boolean;
+  showBreadcrumb?: boolean;
 }
 const props = withDefaults(defineProps<WrapProps>(), {
   showBreadcrumb: true,

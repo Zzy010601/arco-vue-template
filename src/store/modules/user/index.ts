@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-12 14:20:23
+ * @LastEditTime: 2024-06-13 15:11:22
  */
 import { defineStore } from 'pinia';
 import { getUserInfo, login as userLogin, logout as userLogout, getDeptList as userDeparts } from '@/api/user';

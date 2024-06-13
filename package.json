@@ -3,7 +3,7 @@
   "description": "The front template for Vue3, Simplified in Arco Design Pro",
   "version": "1.0.0",
   "private": true,
-  "author": "zhangziyang",
+  "author": "ma_ying_fa",
   "license": "MIT",
   "scripts": {
     "dev": "vite --config ./config/vite.config.dev.ts",
@@ -76,7 +76,6 @@
     "tailwindcss": "^3.4.4",
     "typescript": "^4.5.4",
     "unplugin-auto-import": "^0.17.6",
-    "unplugin-vue-components": "^0.27.0",
     "vite": "^2.6.4",
     "vite-plugin-eslint": "^1.8.1",
     "vite-svg-loader": "^3.1.0",

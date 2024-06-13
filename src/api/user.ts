@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-04 10:45:26
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-12 14:42:19
+ * @LastEditTime: 2024-06-13 15:10:02
  */
 import type { RouteRecordNormalized } from 'vue-router';
 import { UserState } from '@/store/modules/user/types';

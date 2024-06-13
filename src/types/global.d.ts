@@ -1,16 +1,14 @@
-import { SelectOptionData, SelectOptionGroup } from '@arco-design/web-vue';
-
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-12 14:23:42
+ * @LastEditTime: 2024-06-07 15:10:11
  */
 export interface AnyObject {
   [key: string]: unknown;
 }
 
 export interface Options {
-  value: string | number | boolean | SelectOptionData | SelectOptionGroup;
+  value: unknown;
   label: string;
 }
 
