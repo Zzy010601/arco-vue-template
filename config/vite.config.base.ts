@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 16:19:18
+ * @LastEditTime: 2024-06-13 17:07:13
  */
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -32,14 +32,6 @@ export default defineConfig({
     }),
   ],
   css: {
-    preprocessorOptions: {
-      less: {
-        modifyVars: {
-          hack: `true; @import (reference) "${resolve('src/assets/style/breakpoint.less')}";`,
-        },
-        javascriptEnabled: true,
-      },
-    },
     postcss: {
       plugins: [require('tailwindcss'), require('autoprefixer')],
     },
