@@ -1,32 +1,29 @@
-import { resolve } from 'path';
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import svgLoader from 'vite-svg-loader';
+/*
+ * @Date: 2024-06-13 15:33:06
+ * @LastEditors: 张子阳
+ * @LastEditTime: 2024-06-13 16:44:31
+ */
+import { mergeConfig } from 'vite';
+import baseConfig from './vite.config.base';
+import configCompressPlugin from './plugin/compress';
+import configArcoResolverPlugin from './plugin/arcoResolver';
+import configImageminPlugin from './plugin/imagemin';
 
-export default defineConfig({
-  mode: 'production',
-  plugins: [vue(), vueJsx(), svgLoader({ svgoConfig: {} })],
-  resolve: {
-    alias: [
-      {
-        find: '@',
-        replacement: resolve(__dirname, '../src'),
+export default mergeConfig(
+  {
+    mode: 'production',
+    plugins: [configCompressPlugin('gzip'), configArcoResolverPlugin(), configImageminPlugin()],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            arco: ['@arco-design/web-vue'],
+            chart: ['echarts', 'vue-echarts'],
+            vue: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
+          },
+        },
       },
-      {
-        find: 'assets',
-        replacement: resolve(__dirname, '../src/assets'),
-      },
-      {
-        find: 'vue',
-        replacement: 'vue/dist/vue.esm-bundler.js', // compile template. you can remove it, if you don't need.
-      },
-    ],
-    extensions: ['.ts', '.js'],
-  },
-  define: {
-    'process.env': {
-      BASE_API: 'http://localhost:9000',
     },
   },
-});
+  baseConfig,
+);

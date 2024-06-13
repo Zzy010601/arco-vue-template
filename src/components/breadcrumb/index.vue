@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-07 16:34:33
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 15:02:46
+ * @LastEditTime: 2024-06-13 16:11:54
 -->
 <template>
   <a-breadcrumb class="container-breadcrumb">
@@ -25,7 +25,7 @@ export interface BreadcrumbProps {
   items: { path: string; label: string }[];
   jump?: boolean;
 }
-const props = withDefaults(defineProps<BreadcrumbProps>(), {
+withDefaults(defineProps<BreadcrumbProps>(), {
   items: () => [],
   jump: true,
 });

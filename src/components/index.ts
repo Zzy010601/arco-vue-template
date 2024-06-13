@@ -14,7 +14,7 @@ import {
   DataZoomComponent,
   GraphicComponent,
 } from 'echarts/components';
-import Chart from './chart/index.vue';
+import Chart from './Chart/index.vue';
 import Breadcrumb from './Breadcrumb/index.vue';
 import PageWrap from './PageWrap/index.vue';
 

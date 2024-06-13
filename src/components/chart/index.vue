@@ -1,9 +1,13 @@
+<!--
+ * @Date: 2024-06-13 15:33:14
+ * @LastEditors: 张子阳
+ * @LastEditTime: 2024-06-13 16:02:35
+-->
 <template>
   <VCharts v-if="renderChart" :option="options" :autoresize="autoresize" :style="{ width, height }" />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, nextTick } from 'vue';
 import VCharts from 'vue-echarts';
 import { useAppStore } from '@/store';
 
