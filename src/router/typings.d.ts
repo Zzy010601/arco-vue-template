@@ -10,7 +10,7 @@ declare module 'vue-router' {
     role?: string[];
     requiresAuth: boolean;
     icon?: string;
-    locale?: string;
+    title?: string;
     menuSelectKey?: string;
     keepAlive?: boolean;
   }

@@ -159,6 +159,7 @@ const handleSubmit = async ({
     try {
       if (loginMode.value === 'account') {
         await userStore.login(values as LoginData);
+        await userStore.getDepartList();
       } else {
         // await userStore.phoneLogin(values as PhoneLoginData);
       }

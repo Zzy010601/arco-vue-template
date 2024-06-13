@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 11:17:10
+ * @LastEditTime: 2024-06-13 11:17:45
 -->
 <template>
   <PageWrap>
@@ -11,12 +11,12 @@
           <a-row :gutter="16">
             <a-col :span="8">
               <a-form-item label="用户名" field="loginName">
-                <a-input v-model="queryForm.loginName" placeholder="请输入用户名" allow-clear />
+                <a-input v-model="queryForm.loginName" placeholder="请输入用户名" />
               </a-form-item>
             </a-col>
             <a-col :span="8">
               <a-form-item label="姓名" field="name">
-                <a-input v-model="queryForm.name" placeholder="请输入姓名" allow-clear />
+                <a-input v-model="queryForm.name" placeholder="请输入姓名" />
               </a-form-item>
             </a-col>
             <a-col :span="8">
@@ -30,13 +30,12 @@
                     children: 'children',
                   }"
                   allow-search
-                  allow-clear
                 />
               </a-form-item>
             </a-col>
             <a-col :span="8">
               <a-form-item label="手机号" field="telephone">
-                <a-input v-model="queryForm.telephone" placeholder="请输入手机号" allow-clear />
+                <a-input v-model="queryForm.telephone" placeholder="请输入手机号" />
               </a-form-item>
             </a-col>
           </a-row>

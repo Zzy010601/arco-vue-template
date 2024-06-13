@@ -1,11 +1,13 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-07 15:21:37
+ * @LastEditTime: 2024-06-12 14:20:23
  */
 import { defineStore } from 'pinia';
-import { getUserInfo, LoginData, login as userLogin, logout as userLogout } from '@/api/user';
+import { getUserInfo, login as userLogin, logout as userLogout, getDeptList as userDeparts } from '@/api/user';
+import { LoginData } from '@/api/typings';
 import { setToken, clearToken } from '@/utils/auth';
+import { delEmptyChild } from '@/utils';
 import { RoleEnum } from '@/enums/RoleEnum';
 import boyAvatar from '@/assets/svg/avatar-boy.svg?url';
 import { UserState } from './types';
@@ -52,6 +54,13 @@ export const useUserStore = defineStore('user', {
         res.avatar = boyAvatar;
       }
       this.setInfo(res);
+    },
+
+    // 获取部门信息
+    async getDepartList() {
+      const res = await userDeparts();
+      const { children } = delEmptyChild(res);
+      this.setInfo({ departList: children });
     },
 
     // 账号密码登录

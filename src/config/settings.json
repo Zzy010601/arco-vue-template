@@ -4,7 +4,7 @@
   "navbar": true,
   "menu": true,
   "menuCollapse": false,
-  "footer": true,
+  "footer": false,
   "themeColor": "#165DFF",
   "menuWidth": 220,
   "globalSettings": false

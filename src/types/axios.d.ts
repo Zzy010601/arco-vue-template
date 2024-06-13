@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-04 16:21:57
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-04 16:31:51
+ * @LastEditTime: 2024-06-12 14:42:04
  */
 import type { AxiosRequestConfig } from 'axios';
 
@@ -97,6 +97,14 @@ export interface Result<T = any> {
   data: T;
   success: boolean;
   message: string;
+}
+
+export interface Page<T = any> {
+  pageNum: number;
+  pageSize: number;
+  total?: number;
+  list?: T[];
+  totalPage?: number;
 }
 
 export interface AxiosRequestConfigRetry extends AxiosRequestConfig {

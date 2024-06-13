@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-12 09:49:51
+ * @LastEditTime: 2024-06-12 16:47:35
  */
 import { createRouter, createWebHashHistory, LocationQueryRaw } from 'vue-router';
 import NProgress from 'nprogress';
@@ -52,6 +52,7 @@ router.beforeEach(async (to, from, next) => {
     NProgress.done();
   }
   if (isLogin()) {
+    await userStore.getDepartList();
     if (userStore.role) {
       crossroads();
     } else {

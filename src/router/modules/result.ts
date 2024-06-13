@@ -10,7 +10,7 @@ export default {
   name: 'result',
   component: () => import('@/views/result/index.vue'),
   meta: {
-    locale: '结果页',
+    title: '结果页',
     icon: 'icon-check-circle',
     requiresAuth: true,
   },
@@ -20,7 +20,7 @@ export default {
       name: 'success',
       component: () => import('@/views/result/success/index.vue'),
       meta: {
-        locale: '成功页',
+        title: '成功页',
         requiresAuth: true,
         role: [RoleEnum.ADMIN],
       },
@@ -30,7 +30,7 @@ export default {
       name: 'error',
       component: () => import('@/views/result/error/index.vue'),
       meta: {
-        locale: '失败页',
+        title: '失败页',
         requiresAuth: true,
         role: [RoleEnum.ADMIN],
       },

@@ -11,7 +11,7 @@ export default {
   name: 'exception',
   component: PageLayout,
   meta: {
-    locale: '异常页',
+    title: '异常页',
     requiresAuth: true,
     icon: 'icon-exclamation-circle',
   },
@@ -21,7 +21,7 @@ export default {
       name: '403',
       component: () => import('@/views/exception/403/index.vue'),
       meta: {
-        locale: '403',
+        title: '403',
         requiresAuth: true,
         role: [RoleEnum.ADMIN],
       },
@@ -31,7 +31,7 @@ export default {
       name: '404',
       component: () => import('@/views/exception/404/index.vue'),
       meta: {
-        locale: '404',
+        title: '404',
         requiresAuth: true,
         role: [RoleEnum.All],
       },
@@ -41,7 +41,7 @@ export default {
       name: '500',
       component: () => import('@/views/exception/500/index.vue'),
       meta: {
-        locale: '500',
+        title: '500',
         requiresAuth: true,
         role: [RoleEnum.All],
       },

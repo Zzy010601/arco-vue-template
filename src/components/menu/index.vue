@@ -94,13 +94,13 @@ export default defineComponent({
               <a-sub-menu
                 key={element?.name}
                 v-slots={{
-                  title: () => h(compile(`${icon}${element?.meta?.locale || ''}`)),
+                  title: () => h(compile(`${icon}${element?.meta?.title || ''}`)),
                 }}
               >
                 {element?.children?.map((elem) => {
                   return (
                     <a-menu-item key={elem.name} onClick={() => goto(elem)}>
-                      {elem?.meta?.locale || ''}
+                      {elem?.meta?.title || ''}
                       {travel(elem.children ?? [], [])}
                     </a-menu-item>
                   );

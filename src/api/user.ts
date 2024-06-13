@@ -1,26 +1,14 @@
 /*
  * @Date: 2024-06-04 10:45:26
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-11 15:32:43
+ * @LastEditTime: 2024-06-12 14:42:19
  */
 import type { RouteRecordNormalized } from 'vue-router';
 import { UserState } from '@/store/modules/user/types';
 import { request } from '@/utils/request';
+import { Page } from '@/types/axios';
+import { DeptRes, LoginData, LoginRes, UserParams } from './typings';
 
-export interface LoginData {
-  username?: string;
-  password?: string;
-  device?: 'PC' | 'mobile';
-}
-
-export interface LoginRes {
-  cookies: string;
-  depts: any[];
-  menu: any[];
-  perm: string[];
-  pwd: any;
-  user: any;
-}
 export function login(data: LoginData) {
   return request.post<LoginRes>({
     url: '/auth/login',
@@ -56,5 +44,27 @@ export function getUserRole(params: any) {
 export function getMenuList() {
   return request.post<RouteRecordNormalized[]>({
     url: '/api/user/menu',
+  });
+}
+
+/**
+ * @name 获取部门信息
+ * @method GET
+ */
+export function getDeptList() {
+  return request.get<DeptRes>({
+    url: '/auth/department/tree',
+  });
+}
+
+/**
+ * @name 获取用户列表
+ * @param {UserParams} params
+ * @method GET
+ */
+export function getUserList(params: UserParams) {
+  return request.get<Page<any>>({
+    url: 'auth/user/list',
+    params,
   });
 }

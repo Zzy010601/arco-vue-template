@@ -10,7 +10,7 @@ export default {
   name: 'user',
   component: () => import('@/views/user/index.vue'),
   meta: {
-    locale: '个人中心',
+    title: '个人中心',
     icon: 'icon-user',
     requiresAuth: true,
   },
@@ -20,7 +20,7 @@ export default {
       name: 'info',
       component: () => import('@/views/user/info/index.vue'),
       meta: {
-        locale: '用户信息',
+        title: '用户信息',
         requiresAuth: true,
         role: [RoleEnum.All],
       },
@@ -30,7 +30,7 @@ export default {
       name: 'setting',
       component: () => import('@/views/user/setting/index.vue'),
       meta: {
-        locale: '用户设置',
+        title: '用户设置',
         requiresAuth: true,
         role: [RoleEnum.All],
       },

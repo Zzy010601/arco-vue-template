@@ -212,7 +212,7 @@ export default defineComponent({
   padding-right: 20px;
   list-style: none;
 
-  :deep(.locale-select) {
+  :deep(.title-select) {
     border-radius: 20px;
   }
 
