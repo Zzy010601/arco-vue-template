@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { graphic } from 'echarts';
-import useLoading from '@/hooks/loading';
+import useLoading from '@/hooks/useLoading';
 import { queryContentData, ContentDataRecord } from '@/api/dashboard';
 import useChartOption from '@/hooks/chart-option';
 import { ToolTipFormatterParams } from '@/types/echarts';

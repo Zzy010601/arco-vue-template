@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { ToolTipFormatterParams } from '@/types/echarts';
-import useLoading from '@/hooks/loading';
+import useLoading from '@/hooks/useLoading';
 import { queryContentPublish, ContentPublishRecord } from '@/api/visualization';
 import useChartOption from '@/hooks/chart-option';
 

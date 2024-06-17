@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import useLoading from '@/hooks/loading';
+import useLoading from '@/hooks/useLoading';
 import { queryDataChainGrowth, DataChainGrowth } from '@/api/visualization';
 import useChartOption from '@/hooks/chart-option';
 

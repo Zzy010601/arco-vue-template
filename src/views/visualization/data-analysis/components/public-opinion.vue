@@ -55,7 +55,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import useThemes from '@/hooks/themes';
+import useThemes from '@/hooks/useThemes';
 import ChainItem from './chain-item.vue';
 
 export default defineComponent({

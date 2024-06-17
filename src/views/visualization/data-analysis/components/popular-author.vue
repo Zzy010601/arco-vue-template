@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import useLoading from '@/hooks/loading';
+import useLoading from '@/hooks/useLoading';
 import { queryPopularAuthor, PopularAuthorRes } from '@/api/visualization';
 
 export default defineComponent({

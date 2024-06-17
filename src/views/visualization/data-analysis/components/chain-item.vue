@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, PropType, CSSProperties } from 'vue';
-import useLoading from '@/hooks/loading';
+import useLoading from '@/hooks/useLoading';
 import {
   queryPublicOpinionAnalysis,
   PublicOpinionAnalysis,

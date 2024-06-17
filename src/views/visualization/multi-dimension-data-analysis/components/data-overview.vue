@@ -27,9 +27,9 @@
 import { defineComponent, computed, ref } from 'vue';
 import { LineSeriesOption } from 'echarts';
 import { queryDataOverview } from '@/api/visualization';
-import useLoading from '@/hooks/loading';
+import useLoading from '@/hooks/useLoading';
 import { ToolTipFormatterParams } from '@/types/echarts';
-import useThemes from '@/hooks/themes';
+import useThemes from '@/hooks/useThemes';
 import useChartOption from '@/hooks/chart-option';
 
 const tooltipItemsHtmlString = (items: ToolTipFormatterParams[]) => {

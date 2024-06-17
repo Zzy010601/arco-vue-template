@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-07 16:34:33
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 15:06:37
+ * @LastEditTime: 2024-06-17 15:12:19
  */
 import { RouteRecordRaw } from 'vue-router';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
@@ -58,7 +58,7 @@ export const defaultRoutes: RouteRecordRaw[] = [
   {
     path: '/:pathMatch(.*)*',
     name: 'notFound',
-    component: () => import('@/views/not-found/index.vue'),
+    component: () => import('@/views/notFound/index.vue'),
   },
 ];
 

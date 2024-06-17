@@ -102,7 +102,7 @@
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue';
 import { useUserStore } from '@/store';
-import useLoading from '@/hooks/loading';
+import useLoading from '@/hooks/useLoading';
 import useCountDown from '@/hooks/countdown';
 import { Message } from '@arco-design/web-vue';
 import useFormValidator from '@/hooks/form-validator';

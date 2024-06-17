@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import useLoading from '@/hooks/loading';
+import useLoading from '@/hooks/useLoading';
 import useChartOption from '@/hooks/chart-option';
 
 export default defineComponent({

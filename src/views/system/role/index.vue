@@ -1,67 +1,47 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 11:17:10
+ * @LastEditTime: 2024-06-17 16:38:46
 -->
 <template>
-  <PageWrap>
-    <a-row>
-      <a-col :flex="1">
-        <a-form :model="queryForm" auto-label-width>
-          <a-row :gutter="16">
-            <a-col :span="8">
-              <a-form-item label="用户名" field="loginName">
-                <a-input v-model="queryForm.loginName" placeholder="请输入用户名" allow-clear />
-              </a-form-item>
-            </a-col>
-            <a-col :span="8">
-              <a-form-item label="姓名" field="name">
-                <a-input v-model="queryForm.name" placeholder="请输入姓名" allow-clear />
-              </a-form-item>
-            </a-col>
-            <a-col :span="8">
-              <a-form-item label="部门" field="deptHierarchyArr">
-                <a-cascader
-                  :options="deptOptions"
-                  placeholder="请选择部门"
-                  :field-names="{
-                    label: 'deptName',
-                    value: 'deptId',
-                    children: 'children',
-                  }"
-                  allow-search
-                  allow-clear
-                />
-              </a-form-item>
-            </a-col>
-            <a-col :span="8">
-              <a-form-item label="手机号" field="telephone">
-                <a-input v-model="queryForm.telephone" placeholder="请输入手机号" allow-clear />
-              </a-form-item>
-            </a-col>
-          </a-row>
-        </a-form>
-      </a-col>
-      <a-divider class="h-[84px]" direction="vertical" />
-      <a-col :flex="'86px'" class="text-right">
-        <a-space direction="vertical" :size="18">
-          <a-button type="primary" @click="search">
-            <template #icon>
-              <icon-search />
-            </template>
-            查询
-          </a-button>
-          <a-button @click="reset">
-            <template #icon>
-              <icon-refresh />
-            </template>
-            重置
-          </a-button>
-        </a-space>
-      </a-col>
-    </a-row>
-    <a-divider style="margin-top: 0" />
-    <div class="mb-5">
+  <PageWrap v-slot="{ height }">
+    <div ref="headRef" class="mb-5">
+      <a-row>
+        <a-col :flex="1">
+          <a-form :model="queryForm" auto-label-width>
+            <a-row :gutter="16">
+              <a-col :span="8">
+                <a-form-item label="角色名称" field="roleName">
+                  <a-input v-model="queryForm.roleCode" placeholder="请输入角色名称" allow-clear />
+                </a-form-item>
+              </a-col>
+              <a-col :span="8">
+                <a-form-item label="角色编码" field="roleCode">
+                  <a-input v-model="queryForm.roleCode" placeholder="请输入角色编码" allow-clear />
+                </a-form-item>
+              </a-col>
+            </a-row>
+          </a-form>
+        </a-col>
+        <a-divider class="h-[32px]" direction="vertical" />
+        <a-col :flex="'150px'" class="text-right">
+          <a-space direction="horizontal" :size="12">
+            <a-button type="primary" @click="search">
+              <template #icon>
+                <icon-search />
+              </template>
+              查询
+            </a-button>
+            <a-button @click="reset">
+              <template #icon>
+                <icon-refresh />
+              </template>
+              重置
+            </a-button>
+          </a-space>
+        </a-col>
+      </a-row>
+      <a-divider style="margin-top: 0" />
       <a-space>
         <a-button type="primary">
           <template #icon>
@@ -78,7 +58,7 @@
       :data="tableData"
       :pagination="paginationProps"
       :bordered="false"
-      :scroll="{ y: 510 }"
+      :scroll="{ maxHeight: calculateHeight(height) }"
       @page-change="pageChange"
       @page-size-change="pageSizeChange"
     />
@@ -90,8 +70,11 @@ import { useUserStore } from '@/store';
 import { PaginationProps, type TableColumnData } from '@arco-design/web-vue';
 import { getUserList } from '@/api/user';
 import { Pagination } from '@/types/global';
+import dayjs from 'dayjs';
+import { useTableScroll } from '@/hooks';
 
 const userStore = useUserStore();
+const headRef = ref();
 const tableData = ref([]);
 const loading = ref<boolean>(false);
 const pagination = ref<Pagination>({
@@ -99,63 +82,36 @@ const pagination = ref<Pagination>({
   pageSize: 10,
   total: 0,
 });
-const tooltip = ref<string>('');
 const paginationProps = computed<PaginationProps>(() => ({
   ...pagination.value,
   showPageSize: true,
   showTotal: true,
   showJumper: true,
 }));
-const deptOptions = computed(() => {
-  return userStore.departList;
-});
 const queryForm = ref({
-  loginName: '',
-  name: '',
-  deptHierarchyArr: [],
-  telephone: '',
+  roleName: '',
+  roleCode: '',
 });
 const columns = [
   {
-    title: '用户名',
-    dataIndex: 'loginName',
+    title: '角色名称',
+    dataIndex: 'roleName',
     width: 120,
     align: 'center',
     fixed: 'left',
   },
   {
-    title: '角色',
-    dataIndex: 'sysRoleList',
-    width: 250,
-    align: 'center',
-    ellipsis: true,
-    tooltip: true,
-    render: ({ record }) => {
-      tooltip.value = record.sysRoleList.map((item: any) => item.roleName).join(' ');
-      return record.sysRoleList.map((item: any) => (
-        <a-tag size="small" class="mr-1">
-          {item.roleName}
-        </a-tag>
-      ));
-    },
-  },
-  {
-    title: '部门',
-    dataIndex: 'deptName',
-    width: 150,
-    align: 'center',
-  },
-  {
-    title: '公司',
-    dataIndex: 'companyName',
-    width: 150,
-    align: 'center',
-  },
-  {
-    title: '手机号',
-    dataIndex: 'telephone',
+    title: '角色编码',
+    dataIndex: 'roleCode',
     width: 120,
     align: 'center',
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'createTime',
+    width: 150,
+    align: 'center',
+    render: ({ record }) => dayjs(record.createTime).format('YYYY-MM-DD HH:mm:ss'),
   },
   {
     title: '操作',
@@ -163,18 +119,19 @@ const columns = [
     width: 150,
     align: 'center',
     fixed: 'right',
-    render: ({ record }) => (
+    render: () => (
       <a-space size="mini">
         <a-button type="text" size="mini">
-          修改
+          编辑
         </a-button>
         <a-button type="text" size="mini">
-          重置密码
+          授权
         </a-button>
       </a-space>
     ),
   },
 ] as TableColumnData[];
+const { calculateHeight } = useTableScroll(headRef);
 const queryUserList = () => {
   return new Promise((resolve) => {
     loading.value = true;
@@ -207,10 +164,8 @@ const search = () => {
 };
 const reset = () => {
   queryForm.value = {
-    loginName: '',
-    name: '',
-    deptHierarchyArr: [],
-    telephone: '',
+    roleName: '',
+    roleCode: '',
   };
   queryUserList();
 };

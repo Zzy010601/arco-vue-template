@@ -1,67 +1,74 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 11:17:10
+ * @LastEditTime: 2024-06-17 16:53:26
 -->
 <template>
-  <PageWrap>
-    <a-row>
-      <a-col :flex="1">
-        <a-form :model="queryForm" auto-label-width>
-          <a-row :gutter="16">
-            <a-col :span="8">
-              <a-form-item label="用户名" field="loginName">
-                <a-input v-model="queryForm.loginName" placeholder="请输入用户名" allow-clear />
-              </a-form-item>
-            </a-col>
-            <a-col :span="8">
-              <a-form-item label="姓名" field="name">
-                <a-input v-model="queryForm.name" placeholder="请输入姓名" allow-clear />
-              </a-form-item>
-            </a-col>
-            <a-col :span="8">
-              <a-form-item label="部门" field="deptHierarchyArr">
-                <a-cascader
-                  :options="deptOptions"
-                  placeholder="请选择部门"
-                  :field-names="{
-                    label: 'deptName',
-                    value: 'deptId',
-                    children: 'children',
-                  }"
-                  allow-search
-                  allow-clear
-                />
-              </a-form-item>
-            </a-col>
-            <a-col :span="8">
-              <a-form-item label="手机号" field="telephone">
-                <a-input v-model="queryForm.telephone" placeholder="请输入手机号" allow-clear />
-              </a-form-item>
-            </a-col>
-          </a-row>
-        </a-form>
-      </a-col>
-      <a-divider class="h-[84px]" direction="vertical" />
-      <a-col :flex="'86px'" class="text-right">
-        <a-space direction="vertical" :size="18">
-          <a-button type="primary" @click="search">
-            <template #icon>
-              <icon-search />
-            </template>
-            查询
-          </a-button>
-          <a-button @click="reset">
-            <template #icon>
-              <icon-refresh />
-            </template>
-            重置
-          </a-button>
-        </a-space>
-      </a-col>
-    </a-row>
-    <a-divider style="margin-top: 0" />
-    <div class="mb-5">
+  <PageWrap v-slot="{ height }">
+    <div ref="headRef" class="mb-5">
+      <a-row>
+        <a-col :flex="1">
+          <a-form :model="queryForm" auto-label-width>
+            <a-row :gutter="16">
+              <a-col :span="8">
+                <a-form-item label="用户名" field="loginName">
+                  <a-input v-model="queryForm.loginName" placeholder="请输入用户名" allow-clear />
+                </a-form-item>
+              </a-col>
+              <a-col :span="8">
+                <a-form-item label="姓名" field="name">
+                  <a-input v-model="queryForm.name" placeholder="请输入姓名" allow-clear />
+                </a-form-item>
+              </a-col>
+              <a-col :span="8">
+                <a-form-item label="部门" field="deptHierarchyArr">
+                  <a-cascader
+                    :options="deptOptions"
+                    placeholder="请选择部门"
+                    :field-names="{
+                      label: 'deptName',
+                      value: 'deptId',
+                      children: 'children',
+                    }"
+                    allow-search
+                    allow-clear
+                  />
+                </a-form-item>
+              </a-col>
+              <a-col :span="8">
+                <a-form-item label="手机号" field="telephone">
+                  <a-input v-model="queryForm.telephone" placeholder="请输入手机号" allow-clear />
+                </a-form-item>
+              </a-col>
+            </a-row>
+          </a-form>
+        </a-col>
+        <a-divider class="h-[84px]" direction="vertical" />
+        <a-col :flex="'86px'" class="text-right">
+          <a-space direction="vertical" :size="18">
+            <a-button type="primary" @click="search">
+              <template #icon>
+                <icon-search />
+              </template>
+              查询
+            </a-button>
+            <a-button @click="reset">
+              <template #icon>
+                <icon-refresh />
+              </template>
+              重置
+            </a-button>
+            <!-- <a-button type="text" @click="show = !show">
+              <template #icon>
+                <icon-down v-show="!show" />
+                <icon-up v-show="show" />
+              </template>
+              {{ show ? '收起' : '展开' }}
+            </a-button> -->
+          </a-space>
+        </a-col>
+      </a-row>
+      <a-divider style="margin-top: 0" />
       <a-space>
         <a-button type="primary">
           <template #icon>
@@ -78,7 +85,7 @@
       :data="tableData"
       :pagination="paginationProps"
       :bordered="false"
-      :scroll="{ y: 510 }"
+      :scroll="{ maxHeight: calculateHeight(height) }"
       @page-change="pageChange"
       @page-size-change="pageSizeChange"
     />
@@ -90,8 +97,12 @@ import { useUserStore } from '@/store';
 import { PaginationProps, type TableColumnData } from '@arco-design/web-vue';
 import { getUserList } from '@/api/user';
 import { Pagination } from '@/types/global';
+import { useTableScroll } from '@/hooks';
+
+// const show = ref<boolean>(false);
 
 const userStore = useUserStore();
+const headRef = ref();
 const tableData = ref([]);
 const loading = ref<boolean>(false);
 const pagination = ref<Pagination>({
@@ -175,6 +186,7 @@ const columns = [
     ),
   },
 ] as TableColumnData[];
+const { calculateHeight } = useTableScroll(headRef);
 const queryUserList = () => {
   return new Promise((resolve) => {
     loading.value = true;

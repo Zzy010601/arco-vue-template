@@ -1,50 +1,52 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 14:59:33
+ * @LastEditTime: 2024-06-17 16:38:53
 -->
 <template>
-  <PageWrap>
-    <a-row>
-      <a-col :flex="1">
-        <a-form :model="queryForm" auto-label-width>
-          <a-row :gutter="16">
-            <a-col :span="8">
-              <a-form-item label="菜单名称" field="title">
-                <a-input v-model="queryForm.title" placeholder="请输入菜单名称" allow-clear />
-              </a-form-item>
-            </a-col>
-          </a-row>
-        </a-form>
-      </a-col>
-      <a-divider class="h-[32px]" direction="vertical" />
-      <a-col :flex="'150px'" class="text-right">
-        <a-space direction="horizontal" :size="12">
-          <a-button type="primary" @click="search">
+  <PageWrap v-slot="{ height }">
+    <div ref="headRef" class="mb-5">
+      <a-row>
+        <a-col :flex="1">
+          <a-form :model="queryForm" auto-label-width>
+            <a-row :gutter="16">
+              <a-col :span="8">
+                <a-form-item label="菜单名称" field="title">
+                  <a-input v-model="queryForm.title" placeholder="请输入菜单名称" allow-clear />
+                </a-form-item>
+              </a-col>
+            </a-row>
+          </a-form>
+        </a-col>
+        <a-divider class="h-[32px]" direction="vertical" />
+        <a-col :flex="'150px'" class="text-right">
+          <a-space direction="horizontal" :size="12">
+            <a-button type="primary" @click="search">
+              <template #icon>
+                <icon-search />
+              </template>
+              查询
+            </a-button>
+            <a-button @click="reset">
+              <template #icon>
+                <icon-refresh />
+              </template>
+              重置
+            </a-button>
+          </a-space>
+        </a-col>
+      </a-row>
+      <a-divider style="margin-top: 0" />
+      <div class="mb-5">
+        <a-space>
+          <a-button type="primary" @click="handleAdd">
             <template #icon>
-              <icon-search />
+              <icon-plus />
             </template>
-            查询
-          </a-button>
-          <a-button @click="reset">
-            <template #icon>
-              <icon-refresh />
-            </template>
-            重置
+            新增
           </a-button>
         </a-space>
-      </a-col>
-    </a-row>
-    <a-divider style="margin-top: 0" />
-    <div class="mb-5">
-      <a-space>
-        <a-button type="primary" @click="handleAdd">
-          <template #icon>
-            <icon-plus />
-          </template>
-          新增
-        </a-button>
-      </a-space>
+      </div>
     </div>
     <a-table
       v-model:expanded-keys="expandedKeys"
@@ -53,7 +55,7 @@
       :data="tableData"
       :loading="loading"
       :bordered="false"
-      :scroll="{ y: 560 }"
+      :scroll="{ maxHeight: calculateHeight(height) }"
     />
     <a-drawer
       :visible="visible"
@@ -146,7 +148,8 @@
 </template>
 
 <script setup lang="tsx">
-import { FieldRule, Form, TableColumnData } from '@arco-design/web-vue';
+import { FieldRule, TableColumnData } from '@arco-design/web-vue';
+import { useTableScroll } from '@/hooks';
 import { getUserList } from '@/api/user';
 
 const resetEditForm = () => {
@@ -177,6 +180,7 @@ const resetEditForm = () => {
     alwaysShow: false,
   };
 };
+const headRef = ref();
 const tableData = ref([]);
 const expandedKeys = ref([]);
 const loading = ref<boolean>(false);
@@ -252,7 +256,7 @@ const columns = [
     ),
   },
 ] as TableColumnData[];
-
+const { calculateHeight } = useTableScroll(headRef);
 const handleAdd = () => {
   editForm.value = resetEditForm();
   visible.value = true;

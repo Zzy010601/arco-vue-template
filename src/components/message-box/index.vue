@@ -20,7 +20,7 @@
 <script lang="ts">
 import { computed, defineComponent, reactive, ref, toRefs } from 'vue';
 import { MessageListType, MessageRecord, queryMessageList, setMessageStatus } from '@/api/message';
-import useLoading from '@/hooks/loading';
+import useLoading from '@/hooks/useLoading';
 import List from './list.vue';
 
 interface TabItem {
