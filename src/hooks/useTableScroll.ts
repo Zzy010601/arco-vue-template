@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-17 16:20:37
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 16:38:14
+ * @LastEditTime: 2024-06-17 16:54:36
  */
 import { MaybeElementRef } from '@vueuse/core';
 
@@ -16,7 +16,6 @@ export default function useTableScroll(elRef: MaybeElementRef) {
   const calculateHeight = (height: number, extra = 0) => {
     // table滚动高度 = 卡片总高度 - 头部高度 - (margin + table.title + table.pagination)
     const result = height - headHeight.value - 108 - extra;
-    console.log('r', result);
     return result + 'px';
   };
   useResizeObserver(elRef, (entries) => {
