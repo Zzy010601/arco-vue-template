@@ -74,7 +74,11 @@ setupMock({
         });
         return result;
       };
-      return successResponseWrap([generateLineData('纯文本'), generateLineData('图文类'), generateLineData('视频类')]);
+      return successResponseWrap([
+        generateLineData('纯文本'),
+        generateLineData('图文类'),
+        generateLineData('视频类'),
+      ]);
     });
 
     Mock.mock(new RegExp('/api/popular-author/list'), () => {

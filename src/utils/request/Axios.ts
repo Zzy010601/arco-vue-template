@@ -91,8 +91,12 @@ export class VAxios {
     const transform = this.getTransform();
     if (!transform) return;
 
-    const { requestInterceptors, requestInterceptorsCatch, responseInterceptors, responseInterceptorsCatch } =
-      transform;
+    const {
+      requestInterceptors,
+      requestInterceptorsCatch,
+      responseInterceptors,
+      responseInterceptorsCatch,
+    } = transform;
     const axiosCanceler = new AxiosCanceler();
 
     // 请求拦截器
@@ -126,7 +130,9 @@ export class VAxios {
 
     // 响应错误处理
     if (responseInterceptorsCatch && isFunction(responseInterceptorsCatch)) {
-      this.instance.interceptors.response.use(undefined, (error) => responseInterceptorsCatch(error, this.instance));
+      this.instance.interceptors.response.use(undefined, (error) =>
+        responseInterceptorsCatch(error, this.instance),
+      );
     }
   }
 
@@ -197,7 +203,12 @@ export class VAxios {
    * @param config 请求配置
    * @param options
    */
-  upload<T = any>(key: string, file: File, config: AxiosRequestConfig, options?: RequestOptions): Promise<T> {
+  upload<T = any>(
+    key: string,
+    file: File,
+    config: AxiosRequestConfig,
+    options?: RequestOptions,
+  ): Promise<T> {
     const params: FormData = config.params ?? new FormData();
     params.append(key, file);
 
@@ -228,13 +239,19 @@ export class VAxios {
 
     if (requestOptions?.throttle && requestOptions?.throttle.delay !== 0) {
       return new Promise((resolve) => {
-        throttle(() => resolve(this.synthesisRequest(config, options)), requestOptions?.throttle?.delay);
+        throttle(
+          () => resolve(this.synthesisRequest(config, options)),
+          requestOptions?.throttle?.delay,
+        );
       });
     }
 
     if (requestOptions?.debounce && requestOptions?.debounce.delay !== 0) {
       return new Promise((resolve) => {
-        debounce(() => resolve(this.synthesisRequest(config, options)), requestOptions?.debounce?.delay);
+        debounce(
+          () => resolve(this.synthesisRequest(config, options)),
+          requestOptions?.debounce?.delay,
+        );
       });
     }
 
@@ -245,7 +262,10 @@ export class VAxios {
    * 请求方法
    * @private
    */
-  private async synthesisRequest<T = any>(config: AxiosRequestConfigRetry, options?: RequestOptions): Promise<T> {
+  private async synthesisRequest<T = any>(
+    config: AxiosRequestConfigRetry,
+    options?: RequestOptions,
+  ): Promise<T> {
     let conf: CreateAxiosOptions = cloneDeep(config);
     const transform = this.getTransform();
 

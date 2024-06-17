@@ -1,14 +1,18 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 15:11:22
+ * @LastEditTime: 2024-06-17 13:36:46
  */
 import { defineStore } from 'pinia';
-import { getUserInfo, login as userLogin, logout as userLogout, getDeptList as userDeparts } from '@/api/user';
+import {
+  getUserInfo,
+  login as userLogin,
+  logout as userLogout,
+  getDeptList as userDeparts,
+} from '@/api/user';
 import { LoginData } from '@/api/typings';
 import { setToken, clearToken } from '@/utils/auth';
 import { delEmptyChild } from '@/utils';
-import { RoleEnum } from '@/enums/RoleEnum';
 import boyAvatar from '@/assets/svg/avatar-boy.svg?url';
 import { UserState } from './types';
 
@@ -23,6 +27,7 @@ export const useUserStore = defineStore('user', {
     roleNames: [],
     departList: [],
     role: undefined,
+    menuList: [],
   }),
 
   getters: {

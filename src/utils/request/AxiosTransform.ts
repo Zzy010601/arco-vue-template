@@ -50,7 +50,10 @@ export abstract class AxiosTransform {
   /**
    * 请求拦截器
    */
-  requestInterceptors?: (config: AxiosRequestConfig, options: CreateAxiosOptions) => AxiosRequestConfig;
+  requestInterceptors?: (
+    config: AxiosRequestConfig,
+    options: CreateAxiosOptions,
+  ) => AxiosRequestConfig;
 
   /**
    * 响应拦截器

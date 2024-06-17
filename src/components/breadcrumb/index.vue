@@ -12,7 +12,11 @@
       <icon-apps />
     </a-breadcrumb-item>
     <a-breadcrumb-item v-for="item in items" :key="item.path">
-      <a-link v-if="jump && item.path !== route.path" class="text-arco-gray-6" @click="router.push(item.path)">
+      <a-link
+        v-if="jump && item.path !== route.path"
+        class="text-arco-gray-6"
+        @click="router.push(item.path)"
+      >
         {{ item.label }}
       </a-link>
       <span v-else>{{ item.label }}</span>

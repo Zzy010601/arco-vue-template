@@ -3,7 +3,7 @@ import setupMock, { successResponseWrap, failResponseWrap } from '@/utils/setup-
 
 import { MockParams } from '@/types/mock';
 import { isLogin } from '@/utils/auth';
-import { RoleEnum } from '@/enums/RoleEnum';
+import { RoleEnum } from '@/constants';
 import boyAvatar from '@/assets/svg/avatar-boy.svg?url';
 
 setupMock({

@@ -22,7 +22,8 @@
         </a-layout-sider>
         <a-layout class="layout-content" :style="paddingStyle">
           <a-layout-content>
-            <router-view />
+            <PageLayout />
+            <!-- <router-view /> -->
           </a-layout-content>
           <Footer v-if="footer" />
         </a-layout>
@@ -39,12 +40,14 @@ import NavBar from '@/components/navbar/index.vue';
 import Menu from '@/components/menu/index.vue';
 import Footer from '@/components/footer/index.vue';
 import usePermission from '@/hooks/permission';
+import PageLayout from './PageLayout.vue';
 
 export default defineComponent({
   components: {
     NavBar,
     Menu,
     Footer,
+    PageLayout,
   },
   setup() {
     const appStore = useAppStore();

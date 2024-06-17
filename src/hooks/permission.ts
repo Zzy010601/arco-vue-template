@@ -1,6 +1,11 @@
+/*
+ * @Date: 2024-06-13 15:33:15
+ * @LastEditors: 张子阳
+ * @LastEditTime: 2024-06-17 13:39:05
+ */
 import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 import { useUserStore } from '@/store';
-import { RoleEnum } from '@/enums/RoleEnum';
+import { RoleEnum } from '@/constants';
 
 export default function usePermission() {
   const userStore = useUserStore();

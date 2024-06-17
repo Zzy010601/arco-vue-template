@@ -6,7 +6,10 @@
 import type { Plugin } from 'vite';
 import compressPlugin from 'vite-plugin-compression';
 
-export default function configCompressPlugin(compress: 'gzip' | 'brotli', deleteOriginFile = false): Plugin | Plugin[] {
+export default function configCompressPlugin(
+  compress: 'gzip' | 'brotli',
+  deleteOriginFile = false,
+): Plugin | Plugin[] {
   const plugins: Plugin[] = [];
 
   if (compress === 'gzip') {

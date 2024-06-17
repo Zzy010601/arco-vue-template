@@ -5,7 +5,9 @@
 -->
 <template>
   <div class="h-full px-5 pt-5">
-    <div class="relative flex flex-col items-center justify-center h-full text-center bg-white rounded">
+    <div
+      class="relative flex flex-col items-center justify-center h-full text-center bg-white rounded"
+    >
       <a-result class="result" status="500" subtitle="抱歉，服务器出了点问题～" />
       <a-button key="back" type="primary"> 返回 </a-button>
     </div>

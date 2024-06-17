@@ -1,15 +1,14 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 09:12:55
+ * @LastEditTime: 2024-06-14 17:06:00
  */
-import { RoleEnum } from '@/enums/RoleEnum';
-import PageLayout from '@/layout/PageLayout.vue';
+import { RouteRecordRaw } from 'vue-router';
 
 export default {
   path: '/list',
   name: 'list',
-  component: PageLayout,
+  component: 'layout',
   meta: {
     title: '列表页',
     requiresAuth: true,
@@ -19,22 +18,20 @@ export default {
     {
       path: '/list/search-table', // The midline path complies with SEO specifications
       name: 'searchTable',
-      component: () => import('@/views/list/search-table/index.vue'),
+      component: 'list/search-table/index',
       meta: {
         title: '查询表格',
         requiresAuth: true,
-        role: [RoleEnum.All],
       },
     },
     {
       path: '/list/card',
       name: 'card',
-      component: () => import('@/views/list/card/index.vue'),
+      component: 'list/card/index',
       meta: {
         title: '卡片列表',
         requiresAuth: true,
-        role: [RoleEnum.All],
       },
     },
   ],
-};
+} as RouteRecordRaw;

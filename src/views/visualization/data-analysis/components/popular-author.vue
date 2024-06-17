@@ -5,7 +5,12 @@
       <template #extra>
         <a-link> 查看更多 </a-link>
       </template>
-      <a-table :data="tableData.list" :pagination="false" :bordered="false" style="margin-bottom: 20px">
+      <a-table
+        :data="tableData.list"
+        :pagination="false"
+        :bordered="false"
+        style="margin-bottom: 20px"
+      >
         <template #columns>
           <a-table-column title="排名" data-index="ranking"> </a-table-column>
           <a-table-column title="作者" data-index="author"> </a-table-column>

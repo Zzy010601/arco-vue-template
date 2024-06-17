@@ -12,7 +12,9 @@ const env = import.meta.env.MODE || 'development';
 
 // 如果是mock模式 或 没启用直连代理 就不配置host 会走本地Mock拦截 或 Vite 代理
 const host =
-  env === 'mock' || import.meta.env.VITE_IS_REQUEST_PROXY !== 'true' ? '' : import.meta.env.VITE_API_BASE_URL;
+  env === 'mock' || import.meta.env.VITE_IS_REQUEST_PROXY !== 'true'
+    ? ''
+    : import.meta.env.VITE_API_BASE_URL;
 
 // 数据处理，方便区分多种处理方式
 const transform: AxiosTransform = {
@@ -56,7 +58,14 @@ const transform: AxiosTransform = {
 
   // 请求前处理配置
   beforeRequestHook: (config, options) => {
-    const { apiUrl, isJoinPrefix, urlPrefix, joinParamsToUrl, formatDate, joinTime = true } = options;
+    const {
+      apiUrl,
+      isJoinPrefix,
+      urlPrefix,
+      joinParamsToUrl,
+      formatDate,
+      joinTime = true,
+    } = options;
 
     // 添加接口前缀
     if (isJoinPrefix && urlPrefix && isString(urlPrefix)) {

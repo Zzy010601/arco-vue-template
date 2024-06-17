@@ -40,7 +40,10 @@
               <template #cell="{ record }">
                 <div class="increases-cell">
                   <span>{{ record.increases }}%</span>
-                  <icon-caret-up v-if="record.increases !== 0" style="color: #f53f3f; font-size: 8px" />
+                  <icon-caret-up
+                    v-if="record.increases !== 0"
+                    style="color: #f53f3f; font-size: 8px"
+                  />
                 </div>
               </template>
             </a-table-column>

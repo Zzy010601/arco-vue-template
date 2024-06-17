@@ -1,5 +1,7 @@
 <template>
-  <a-layout-footer class="footer"> Copyright © {{ new Date().getFullYear() }} Present Arco Design Web </a-layout-footer>
+  <a-layout-footer class="footer">
+    Copyright © {{ new Date().getFullYear() }} Present Arco Design Web
+  </a-layout-footer>
 </template>
 
 <script lang="ts">

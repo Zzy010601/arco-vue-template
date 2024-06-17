@@ -3,7 +3,13 @@
     <a-card class="general-card" title="数据总览">
       <a-row justify="space-between">
         <a-col v-for="(item, idx) in renderData" :key="idx" :span="6">
-          <a-statistic :title="item.title" :value="item.value" show-group-separator :value-from="0" animation>
+          <a-statistic
+            :title="item.title"
+            :value="item.value"
+            show-group-separator
+            :value-from="0"
+            animation
+          >
             <template #prefix>
               <span class="statistic-prefix" :style="{ background: item.prefix.background }">
                 <component :is="item.prefix.icon" :style="{ color: item.prefix.iconColor }" />
@@ -31,7 +37,9 @@ const tooltipItemsHtmlString = (items: ToolTipFormatterParams[]) => {
     .map(
       (el) => `<div class="content-panel">
         <p>
-          <span style="background-color: ${el.color}" class="tooltip-item-icon"></span><span>${el.seriesName}</span>
+          <span style="background-color: ${el.color}" class="tooltip-item-icon"></span><span>${
+        el.seriesName
+      }</span>
         </p>
         <span class="tooltip-value">${el.value.toLocaleString()}</span>
       </div>`,
@@ -40,7 +48,12 @@ const tooltipItemsHtmlString = (items: ToolTipFormatterParams[]) => {
     .join('');
 };
 
-const generateSeries = (name: string, lineColor: string, itemBorderColor: string, data: number[]): LineSeriesOption => {
+const generateSeries = (
+  name: string,
+  lineColor: string,
+  itemBorderColor: string,
+  data: number[],
+): LineSeriesOption => {
   return {
     name,
     data,

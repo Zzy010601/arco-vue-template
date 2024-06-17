@@ -13,7 +13,11 @@
             :validate-trigger="['change', 'blur']"
             hide-label
           >
-            <a-input v-model="userInfo.username" placeholder="用户名：admin" @keyup.enter="handleSubmit">
+            <a-input
+              v-model="userInfo.username"
+              placeholder="用户名：admin"
+              @keyup.enter="handleSubmit"
+            >
               <template #prefix>
                 <icon-user />
               </template>
@@ -48,8 +52,19 @@
         </a-form>
       </a-tab-pane>
       <a-tab-pane key="phone" title="手机号登录">
-        <a-form ref="phoneLoginRef" :model="phoneLogin" size="large" layout="vertical" @submit="handleSubmit">
-          <a-form-item field="phone" :rules="phoneRules" :validate-trigger="['change', 'blur']" hide-label>
+        <a-form
+          ref="phoneLoginRef"
+          :model="phoneLogin"
+          size="large"
+          layout="vertical"
+          @submit="handleSubmit"
+        >
+          <a-form-item
+            field="phone"
+            :rules="phoneRules"
+            :validate-trigger="['change', 'blur']"
+            hide-label
+          >
             <a-input
               v-model="phoneLogin.phone"
               placeholder="手机号"
@@ -70,7 +85,12 @@
             :validate-trigger="['change', 'blur']"
             hide-label
           >
-            <a-input v-model="phoneLogin.authCode" placeholder="短信验证码" allow-clear @keyup.enter="handleSubmit">
+            <a-input
+              v-model="phoneLogin.authCode"
+              placeholder="短信验证码"
+              allow-clear
+              @keyup.enter="handleSubmit"
+            >
               <template #prefix>
                 <icon-safe />
               </template>
@@ -165,7 +185,7 @@ const handleSubmit = async ({
       }
       savePassword();
       const { redirect, ...othersQuery } = router.currentRoute.value.query;
-      router.push('/dashboard/workplace');
+      router.push('/home');
       Message.success('欢迎使用');
     } finally {
       setLoading(false);

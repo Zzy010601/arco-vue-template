@@ -4,10 +4,10 @@
 
 简化 arco design pro，采用腾讯 Axios 二次封装方案
 
-项目推荐采用tailwindcss书写样式，tailwindcss文档：https://www.tailwindcss.cn/
+项目推荐采用 tailwindcss 书写样式，tailwindcss 文档：https://www.tailwindcss.cn/
 
-项目使用自动按需导入，vue/vue-router/vueuse等api已自动导入，无需在页面中继续引入; 
-开发环境采用全局引入的方式引入Arco design组件，生产环境采用自动按需导入；
+项目使用自动按需导入，vue/vue-router/vueuse 等 api 已自动导入，无需在页面中继续引入;
+开发环境采用全局引入的方式引入 Arco design 组件，生产环境采用自动按需导入；
 
 ## 🌈 目录结构
 
@@ -57,8 +57,8 @@ npm install pnpm -g
 
 pnpm config set registry https://registry.npmmirror.com
 
-# 安装依赖 
-pnpm install 
+# 安装依赖
+pnpm install
 
 # 本地开发 启动项目
 pnpm dev

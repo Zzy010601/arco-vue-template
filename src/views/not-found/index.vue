@@ -1,3 +1,8 @@
+<!--
+ * @Date: 2024-06-13 15:33:15
+ * @LastEditors: 张子阳
+ * @LastEditTime: 2024-06-17 15:07:10
+-->
 <template>
   <div class="content">
     <a-result class="result" status="404" subtitle="抱歉，页面不见了～"> </a-result>
@@ -7,21 +12,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { useRouter } from 'vue-router';
-
-export default defineComponent({
-  setup() {
-    const router = useRouter();
-    const back = () => {
-      router.push({ name: 'workplace' });
-    };
-    return {
-      back,
-    };
-  },
-});
+<script setup lang="ts">
+const router = useRouter();
+const back = () => {
+  router.push({ name: 'home' });
+};
 </script>
 
 <style scoped lang="less">

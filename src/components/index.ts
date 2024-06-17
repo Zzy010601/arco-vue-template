@@ -1,40 +1,25 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 15:23:55
+ * @LastEditTime: 2024-06-13 17:36:46
  */
-import { App } from 'vue';
-import { use } from 'echarts/core';
-import { CanvasRenderer } from 'echarts/renderers';
-import { BarChart, LineChart, PieChart, RadarChart } from 'echarts/charts';
-import {
-  GridComponent,
-  TooltipComponent,
-  LegendComponent,
-  DataZoomComponent,
-  GraphicComponent,
-} from 'echarts/components';
+import { App, Component } from 'vue';
 import Chart from './Chart/index.vue';
 import Breadcrumb from './Breadcrumb/index.vue';
 import PageWrap from './PageWrap/index.vue';
 
-use([
-  CanvasRenderer,
-  BarChart,
-  LineChart,
-  PieChart,
-  RadarChart,
-  GridComponent,
-  TooltipComponent,
-  LegendComponent,
-  DataZoomComponent,
-  GraphicComponent,
-]);
+const components: {
+  [key: string]: Component;
+} = {
+  Chart,
+  Breadcrumb,
+  PageWrap,
+};
 
 export default {
-  install(Vue: App) {
-    Vue.component('Chart', Chart);
-    Vue.component('Breadcrumb', Breadcrumb);
-    Vue.component('PageWrap', PageWrap);
+  install(app: App) {
+    Object.keys(components).forEach((key) => {
+      app.component(key, components[key]);
+    });
   },
 };

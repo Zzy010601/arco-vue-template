@@ -3,7 +3,9 @@
     <div class="left-side">
       <a-space>
         <img class="navbar-logo" :src="logImage" alt="logo" />
-        <a-typography-title :style="{ margin: 0, fontSize: '18px' }" :heading="5"> Arco Design Web </a-typography-title>
+        <a-typography-title :style="{ margin: 0, fontSize: '18px' }" :heading="5">
+          Arco Design Web
+        </a-typography-title>
       </a-space>
     </div>
     <ul class="right-side">

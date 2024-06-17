@@ -26,10 +26,10 @@
   "include": [
     "**/*.ts",
     "src/**/*.d.ts",
-    "src/types/*.d.ts",
+    "src/types/**/*.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-  ],
+    "src/**/*.vue"
+  ]
   // "compileOnSave": false
 }

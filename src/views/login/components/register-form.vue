@@ -4,7 +4,13 @@
       <img :src="logoIcon" alt="logo" />
       <span>Arco Design Web</span>
     </div>
-    <a-form ref="registerFormRef" :model="userInfo" size="large" layout="vertical" @submit="handleSubmit">
+    <a-form
+      ref="registerFormRef"
+      :model="userInfo"
+      size="large"
+      layout="vertical"
+      @submit="handleSubmit"
+    >
       <a-form-item
         field="nickName"
         :rules="[{ required: true, message: '请输入用户名' }]"
@@ -17,7 +23,12 @@
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item field="email" :rules="emailRules" :validate-trigger="['change', 'blur']" hide-label>
+      <a-form-item
+        field="email"
+        :rules="emailRules"
+        :validate-trigger="['change', 'blur']"
+        hide-label
+      >
         <a-input
           v-model="userInfo.email"
           placeholder="请输入邮箱地址"
@@ -44,7 +55,12 @@
           </template>
         </a-input>
       </a-form-item>
-      <a-form-item field="password" :rules="passwordRules" :validate-trigger="['change', 'blur']" hide-label>
+      <a-form-item
+        field="password"
+        :rules="passwordRules"
+        :validate-trigger="['change', 'blur']"
+        hide-label
+      >
         <a-input-password
           v-model="userInfo.password"
           autocomplete="new-password"

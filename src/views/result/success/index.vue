@@ -1,6 +1,10 @@
+<!--
+ * @Date: 2024-06-13 15:33:15
+ * @LastEditors: 张子阳
+ * @LastEditTime: 2024-06-17 10:16:41
+-->
 <template>
-  <div class="container">
-    <Breadcrumb :items="['结果页', '成功页']" />
+  <PageWrap>
     <div class="wrapper">
       <a-result class="result" status="success" title="提交成功" subtitle="表单提交成功！">
         <template #extra>
@@ -22,7 +26,7 @@
         </a-steps>
       </div>
     </div>
-  </div>
+  </PageWrap>
 </template>
 
 <script lang="ts">

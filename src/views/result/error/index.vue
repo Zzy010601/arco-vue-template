@@ -1,6 +1,10 @@
+<!--
+ * @Date: 2024-06-13 15:33:15
+ * @LastEditors: 张子阳
+ * @LastEditTime: 2024-06-17 10:16:25
+-->
 <template>
-  <div class="container">
-    <Breadcrumb :items="['结果页', '失败页']" />
+  <PageWrap>
     <div class="wrapper">
       <a-result class="result" status="error" title="提交失败" subtitle="表单提交失败，请重试。">
         <template #extra>
@@ -27,7 +31,7 @@
         </a-typography-paragraph>
       </div>
     </div>
-  </div>
+  </PageWrap>
 </template>
 
 <script lang="ts">

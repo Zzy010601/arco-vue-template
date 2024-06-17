@@ -13,7 +13,7 @@ export default defineComponent({
     const route = useRoute();
     const collapsed = ref(false);
     const appRoute = computed(() => {
-      return router.getRoutes();
+      return router.getRoutes().filter((item) => !item.meta?.hidden);
     });
     const menuTree = computed(() => {
       const copyRouter = JSON.parse(JSON.stringify(appRoute.value));
@@ -89,24 +89,41 @@ export default defineComponent({
           _route.forEach((element) => {
             // This is demo, modify nodes as needed
             if (!permission.accessRouter(element)) return;
-            const icon = element?.meta?.icon ? `<${element?.meta?.icon}/>` : ``;
-            const r = (
-              <a-sub-menu
-                key={element?.name}
-                v-slots={{
-                  title: () => h(compile(`${icon}${element?.meta?.title || ''}`)),
-                }}
-              >
-                {element?.children?.map((elem) => {
-                  return (
-                    <a-menu-item key={elem.name} onClick={() => goto(elem)}>
-                      {elem?.meta?.title || ''}
-                      {travel(elem.children ?? [], [])}
-                    </a-menu-item>
-                  );
-                })}
-              </a-sub-menu>
-            );
+            const icon = (icon: string | undefined | null) => {
+              return icon ? `<${icon}/>` : ``;
+            };
+            // 如果父级一级菜单不是始终显示且只有一个二级菜单并且此二级菜单没有第三级子菜单，则不显示其父级一级菜单
+            const r =
+              !element.meta?.alwaysShow &&
+              element?.children?.length === 1 &&
+              !element.children[0]?.children ? (
+                <a-menu-item
+                  key={element.children[0].name}
+                  v-slots={{
+                    icon: () => h(compile(`${icon(element.children[0]?.meta?.icon)}`)),
+                  }}
+                  onClick={() => goto(element.children[0])}
+                >
+                  {element.children[0]?.meta?.title || ''}
+                </a-menu-item>
+              ) : (
+                <a-sub-menu
+                  key={element?.name}
+                  v-slots={{
+                    title: () =>
+                      h(compile(`${icon(element?.meta?.icon)}${element?.meta?.title || ''}`)),
+                  }}
+                >
+                  {element?.children?.map((elem) => {
+                    return (
+                      <a-menu-item key={elem.name} onClick={() => goto(elem)}>
+                        {elem?.meta?.title || ''}
+                        {travel(elem.children ?? [], [])}
+                      </a-menu-item>
+                    );
+                  })}
+                </a-sub-menu>
+              );
             nodes.push(r as never);
           });
         }

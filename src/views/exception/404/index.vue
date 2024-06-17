@@ -5,7 +5,9 @@
 -->
 <template>
   <div class="h-full px-5 pt-5">
-    <div class="relative flex flex-col items-center justify-center h-full text-center bg-white rounded">
+    <div
+      class="relative flex flex-col items-center justify-center h-full text-center bg-white rounded"
+    >
       <a-result class="result" status="404" subtitle="抱歉，页面不见了～"> </a-result>
       <div class="operation-row">
         <a-button key="again" style="margin-right: 16px"> 重试 </a-button>

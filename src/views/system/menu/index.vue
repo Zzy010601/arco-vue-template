@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 16:12:15
+ * @LastEditTime: 2024-06-17 14:59:33
 -->
 <template>
   <PageWrap>
@@ -38,7 +38,7 @@
     <a-divider style="margin-top: 0" />
     <div class="mb-5">
       <a-space>
-        <a-button type="primary">
+        <a-button type="primary" @click="handleAdd">
           <template #icon>
             <icon-plus />
           </template>
@@ -47,26 +47,157 @@
       </a-space>
     </div>
     <a-table
-      :loading="loading"
+      v-model:expanded-keys="expandedKeys"
       row-key="id"
       :columns="columns"
       :data="tableData"
+      :loading="loading"
       :bordered="false"
       :scroll="{ y: 560 }"
     />
+    <a-drawer
+      :visible="visible"
+      :title="'新增菜单'"
+      :width="600"
+      :render-to-body="false"
+      unmount-on-close
+      @ok="handleOk"
+      @cancel="visible = false"
+    >
+      <a-form
+        ref="formRef"
+        :model="editForm"
+        :rules="rules"
+        :label-col-props="{ span: 5 }"
+        :wrapper-col-props="{ span: 18 }"
+      >
+        <a-form-item label="菜单类型" field="menuType">
+          <a-radio-group v-model="editForm.menuType" type="button">
+            <a-radio :value="0">一级菜单</a-radio>
+            <a-radio :value="1">子菜单</a-radio>
+            <a-radio :value="2">按钮/权限</a-radio>
+          </a-radio-group>
+        </a-form-item>
+        <a-form-item :label="editForm.menuType === 2 ? '按钮/权限' : '菜单名称'" field="title">
+          <a-input
+            v-model="editForm.title"
+            :placeholder="editForm.menuType === 2 ? '请输入按钮/权限' : '请输入菜单名称'"
+            allow-clear
+          />
+        </a-form-item>
+        <a-form-item v-if="editForm.menuType !== 0" label="上级菜单" field="parentId">
+          <a-tree-select
+            v-model="editForm.parentId"
+            :data="menuTree"
+            placeholder="请选择上级菜单"
+            allow-clear
+          />
+        </a-form-item>
+        <a-form-item v-if="editForm.menuType !== 2" label="路由地址" field="path">
+          <a-input
+            v-model="editForm.path"
+            placeholder="请输入路由地址"
+            allow-clear
+            @blur="editForm.path = editForm?.path.trim()"
+          />
+        </a-form-item>
+        <a-form-item v-if="editForm.menuType !== 2" label="组件路径" field="component">
+          <a-input
+            v-model="editForm.component"
+            placeholder="请输入组件路径"
+            allow-clear
+            @blur="editForm.component = editForm?.component.trim()"
+          />
+        </a-form-item>
+        <a-form-item v-if="editForm.menuType === 0" label="默认跳转地址" field="redirect">
+          <a-input
+            v-model="editForm.redirect"
+            placeholder="请输入默认跳转地址"
+            allow-clear
+            @blur="editForm.redirect = editForm?.redirect.trim()"
+          />
+        </a-form-item>
+        <a-form-item v-if="editForm.menuType === 2" label="权限标识" field="perms">
+          <a-input v-model="editForm.perms" placeholder="请输入权限标识" allow-clear />
+        </a-form-item>
+        <a-form-item v-if="editForm.menuType !== 2" label="菜单图标" field="icon">
+          <a-input v-model="editForm.icon" placeholder="请输入菜单图标" />
+        </a-form-item>
+        <a-form-item v-if="editForm.menuType !== 2" label="排序" field="sortNo">
+          <a-input-number v-model="editForm.sortNo" :min="0" placeholder="请输入排序" />
+        </a-form-item>
+        <a-form-item v-if="editForm.menuType !== 2" label="是否为路由菜单" field="route">
+          <a-switch v-model="editForm.route" checked-text="是" unchecked-text="否" />
+        </a-form-item>
+        <a-form-item v-if="editForm.menuType !== 2" label="是否隐藏" field="hidden">
+          <a-switch v-model="editForm.hidden" checked-text="是" unchecked-text="否" />
+        </a-form-item>
+        <a-form-item
+          v-if="editForm.menuType === 0"
+          label="是否始终显示"
+          field="alwaysShow"
+          tooltip="若为否，当该一级菜单只有一个二级菜单且二级菜单没有子菜单时，不显示此一级菜单。反之，则始终显示此一级菜单。"
+        >
+          <a-switch v-model="editForm.alwaysShow" checked-text="是" unchecked-text="否" />
+        </a-form-item>
+      </a-form>
+    </a-drawer>
   </PageWrap>
 </template>
 
 <script setup lang="tsx">
-import { TableColumnData } from '@arco-design/web-vue';
+import { FieldRule, Form, TableColumnData } from '@arco-design/web-vue';
 import { getUserList } from '@/api/user';
 
+const resetEditForm = () => {
+  return {
+    // 菜单标题
+    title: '',
+    // 菜单类型
+    menuType: 0,
+    // 上级菜单id
+    parentId: null as number,
+    // icon
+    icon: '',
+    // 路由地址
+    path: '',
+    // 默认跳转地址
+    redirect: '',
+    // 组件路径
+    component: '',
+    // 权限标识
+    perms: '',
+    // 排序
+    sortNo: 0,
+    // 是否为路由菜单
+    route: true,
+    // 是否隐藏
+    hidden: false,
+    // 是否始终显示
+    alwaysShow: false,
+  };
+};
 const tableData = ref([]);
+const expandedKeys = ref([]);
 const loading = ref<boolean>(false);
-const tooltip = ref<string>('');
+const visible = ref<boolean>(false);
 const queryForm = ref({
   title: '',
 });
+const formRef = ref();
+const editForm = ref(resetEditForm());
+const rules = ref<Record<string, FieldRule[]>>({
+  title: [
+    {
+      required: true,
+      message: editForm.value.menuType === 2 ? '请输入按钮/权限' : '请输入菜单名称',
+    },
+  ],
+  parentId: [{ required: true, message: '请选择上级菜单' }],
+  path: [{ required: true, message: '请输入路由地址' }],
+  component: [{ required: true, message: '请输入组件路径' }],
+});
+const menuTree = ref([]);
 const columns = [
   {
     title: '菜单名称',
@@ -121,6 +252,19 @@ const columns = [
     ),
   },
 ] as TableColumnData[];
+
+const handleAdd = () => {
+  editForm.value = resetEditForm();
+  visible.value = true;
+};
+const handleOk = () => {
+  formRef.value
+    .validate()
+    .then(() => {})
+    .catch((errors: any) => {
+      console.log('errors', errors);
+    });
+};
 const queryUserList = () => {
   return new Promise((resolve) => {
     // loading.value = true;
@@ -145,3 +289,9 @@ const reset = () => {
 };
 onMounted(() => queryUserList());
 </script>
+
+<style lang="less" scoped>
+:deep(.arco-drawer-body) {
+  padding-top: 30px;
+}
+</style>
