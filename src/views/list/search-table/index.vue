@@ -153,7 +153,7 @@
 </template>
 
 <script setup lang="ts">
-import useLoading from '@/hooks/loading';
+import { useLoading } from '@/hooks';
 import { queryPolicyList, PolicyRecord, PolicyParams } from '@/api/list';
 import { Pagination } from '@/types/global';
 import pictureIcon from '@/assets/icons/picture.svg?url';

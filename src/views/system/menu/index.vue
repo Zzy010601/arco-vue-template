@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 16:38:53
+ * @LastEditTime: 2024-06-17 17:00:10
 -->
 <template>
   <PageWrap v-slot="{ height }">
@@ -134,6 +134,9 @@
         <a-form-item v-if="editForm.menuType !== 2" label="是否隐藏" field="hidden">
           <a-switch v-model="editForm.hidden" checked-text="是" unchecked-text="否" />
         </a-form-item>
+        <a-form-item v-if="editForm.menuType !== 2" label="是否缓存路由" field="keepAlive">
+          <a-switch v-model="editForm.keepAlive" checked-text="是" unchecked-text="否" />
+        </a-form-item>
         <a-form-item
           v-if="editForm.menuType === 0"
           label="是否始终显示"
@@ -176,6 +179,8 @@ const resetEditForm = () => {
     route: true,
     // 是否隐藏
     hidden: false,
+    // 是否缓存路由
+    keepAlive: true,
     // 是否始终显示
     alwaysShow: false,
   };
