@@ -62,7 +62,6 @@ export default defineComponent({
       (newVal) => {
         if (newVal.meta.requiresAuth) {
           const key = newVal.matched[1]?.name as string;
-          console.log(key, newVal);
           selectedKey.value = [key];
         }
       },

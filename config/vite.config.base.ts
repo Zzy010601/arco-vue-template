@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-14 11:27:37
+ * @LastEditTime: 2024-06-18 11:25:37
  */
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
@@ -28,13 +28,9 @@ export default defineConfig({
       },
     }),
     Components({
-      dirs: [],
+      dirs: [], // 避免解析到src/components
       deep: false,
-      resolvers: [
-        ArcoResolver({
-          sideEffect: false,
-        }),
-      ],
+      resolvers: [ArcoResolver()],
     }),
     vitePluginForArco({}),
     eslint({

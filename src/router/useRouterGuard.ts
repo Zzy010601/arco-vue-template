@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-14 16:19:44
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 13:52:28
+ * @LastEditTime: 2024-06-18 08:56:45
  */
 import { useUserStore } from '@/store';
 import { LocationQueryRaw, Router } from 'vue-router';
@@ -24,7 +24,6 @@ export const useRouterGuard = (router: Router) => {
           const routes = await asyncRoutes();
           const menuList = addAsyncRoutes(routes, router);
           userStore.setInfo({ menuList });
-          console.log('to', to);
           next(to.fullPath);
         } else {
           next();

@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 17:00:10
+ * @LastEditTime: 2024-06-18 11:27:24
 -->
 <template>
   <PageWrap v-slot="{ height }">
@@ -155,36 +155,34 @@ import { FieldRule, TableColumnData } from '@arco-design/web-vue';
 import { useTableScroll } from '@/hooks';
 import { getUserList } from '@/api/user';
 
-const resetEditForm = () => {
-  return {
-    // 菜单标题
-    title: '',
-    // 菜单类型
-    menuType: 0,
-    // 上级菜单id
-    parentId: null as number,
-    // icon
-    icon: '',
-    // 路由地址
-    path: '',
-    // 默认跳转地址
-    redirect: '',
-    // 组件路径
-    component: '',
-    // 权限标识
-    perms: '',
-    // 排序
-    sortNo: 0,
-    // 是否为路由菜单
-    route: true,
-    // 是否隐藏
-    hidden: false,
-    // 是否缓存路由
-    keepAlive: true,
-    // 是否始终显示
-    alwaysShow: false,
-  };
-};
+const resetEditForm = () => ({
+  // 菜单标题
+  title: '',
+  // 菜单类型
+  menuType: 0,
+  // 上级菜单id
+  parentId: null as number,
+  // icon
+  icon: '',
+  // 路由地址
+  path: '',
+  // 默认跳转地址
+  redirect: '',
+  // 组件路径
+  component: '',
+  // 权限标识
+  perms: '',
+  // 排序
+  sortNo: 0,
+  // 是否为路由菜单
+  route: true,
+  // 是否隐藏
+  hidden: false,
+  // 是否缓存路由
+  keepAlive: true,
+  // 是否始终显示
+  alwaysShow: false,
+});
 const headRef = ref();
 const tableData = ref([]);
 const expandedKeys = ref([]);

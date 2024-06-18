@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 16:38:46
+ * @LastEditTime: 2024-06-18 10:30:54
 -->
 <template>
   <PageWrap v-slot="{ height }">
@@ -43,7 +43,7 @@
       </a-row>
       <a-divider style="margin-top: 0" />
       <a-space>
-        <a-button type="primary">
+        <a-button type="primary" @click="handleAdd">
           <template #icon>
             <icon-plus />
           </template>
@@ -62,28 +62,70 @@
       @page-change="pageChange"
       @page-size-change="pageSizeChange"
     />
+    <a-modal
+      v-model:visible="modalVisible"
+      :title="editForm?.id ? '编辑角色' : '新增角色'"
+      width="550px"
+      draggable
+      unmount-on-close
+      @before-ok="handleAddOk"
+      @cancel="modalVisible = false"
+    >
+      <a-form ref="formRef" :model="editForm" :rules="rules" auto-label-width>
+        <a-form-item label="角色名称" field="roleName">
+          <a-input v-model="editForm.roleName" placeholder="请输入角色名称" />
+        </a-form-item>
+        <a-form-item label="角色编码" field="roleCode">
+          <a-input
+            v-model="editForm.roleCode"
+            placeholder="请输入角色编码"
+            :disabled="!!editForm?.id"
+          />
+        </a-form-item>
+        <a-form-item label="备注" field="remark">
+          <a-textarea
+            v-model="editForm.remark"
+            placeholder="请输入备注"
+            :auto-size="{ minRows: 2, maxRows: 6 }"
+          />
+        </a-form-item>
+      </a-form>
+    </a-modal>
+    <a-drawer v-model:visible="drawerVisible" title="角色权限配置" width="550px" unmount-on-close>
+      <a-scrollbar class="h-full overflow-auto"> </a-scrollbar>
+    </a-drawer>
   </PageWrap>
 </template>
 
 <script setup lang="tsx">
-import { useUserStore } from '@/store';
-import { PaginationProps, type TableColumnData } from '@arco-design/web-vue';
+import { PaginationProps, TableColumnData } from '@arco-design/web-vue';
 import { getUserList } from '@/api/user';
 import { Pagination } from '@/types/global';
 import dayjs from 'dayjs';
 import { useTableScroll } from '@/hooks';
 
-const userStore = useUserStore();
+const resetEditForm = () => ({
+  // 角色id
+  id: undefined as number,
+  // 角色名称
+  roleName: '',
+  // 角色编码
+  roleCode: '',
+  // 备注
+  remark: '',
+});
 const headRef = ref();
 const tableData = ref([]);
 const loading = ref<boolean>(false);
-const pagination = ref<Pagination>({
+const modalVisible = ref<boolean>(false);
+const drawerVisible = ref<boolean>(false);
+const pagination = reactive<Pagination>({
   current: 1,
   pageSize: 10,
   total: 0,
 });
 const paginationProps = computed<PaginationProps>(() => ({
-  ...pagination.value,
+  ...pagination,
   showPageSize: true,
   showTotal: true,
   showJumper: true,
@@ -92,6 +134,12 @@ const queryForm = ref({
   roleName: '',
   roleCode: '',
 });
+const editForm = ref(resetEditForm());
+const formRef = ref();
+const rules = {
+  roleName: [{ required: true, message: '请输入角色名称' }],
+  roleCode: [{ required: true, message: '请输入角色编码' }],
+};
 const columns = [
   {
     title: '角色名称',
@@ -119,12 +167,12 @@ const columns = [
     width: 150,
     align: 'center',
     fixed: 'right',
-    render: () => (
+    render: ({ record }) => (
       <a-space size="mini">
-        <a-button type="text" size="mini">
+        <a-button type="text" size="mini" onClick={() => handleEdit(record)}>
           编辑
         </a-button>
-        <a-button type="text" size="mini">
+        <a-button type="text" size="mini" onClick={() => handleAccredit()}>
           授权
         </a-button>
       </a-space>
@@ -132,17 +180,18 @@ const columns = [
   },
 ] as TableColumnData[];
 const { calculateHeight } = useTableScroll(headRef);
-const queryUserList = () => {
+// 获取角色列表
+const queryRoleList = () => {
   return new Promise((resolve) => {
     loading.value = true;
     getUserList({
       ...queryForm.value,
-      pageNum: pagination.value.current,
-      pageSize: pagination.value.pageSize,
+      pageNum: pagination.current,
+      pageSize: pagination.pageSize,
     })
       .then((res) => {
         tableData.value = res.list;
-        pagination.value.total = res.total;
+        pagination.total = res.total;
         resolve(res);
       })
       .finally(() => {
@@ -150,24 +199,40 @@ const queryUserList = () => {
       });
   });
 };
+const handleAdd = () => {
+  modalVisible.value = true;
+  editForm.value = resetEditForm();
+};
+const handleEdit = (record: any) => {
+  modalVisible.value = true;
+  editForm.value = { ...record };
+};
+const handleAccredit = () => {
+  drawerVisible.value = true;
+};
+const handleAddOk = (done: (closed?: boolean) => void) => {
+  formRef.value.validate().then(() => {
+    modalVisible.value = true;
+  });
+};
 const pageChange = (page: number) => {
-  pagination.value.current = page;
-  queryUserList();
+  pagination.current = page;
+  queryRoleList();
 };
 const pageSizeChange = (size: number) => {
-  pagination.value.pageSize = size;
-  queryUserList();
+  pagination.pageSize = size;
+  queryRoleList();
 };
 const search = () => {
-  pagination.value.current = 1;
-  queryUserList();
+  pagination.current = 1;
+  queryRoleList();
 };
 const reset = () => {
   queryForm.value = {
     roleName: '',
     roleCode: '',
   };
-  queryUserList();
+  queryRoleList();
 };
-onMounted(() => queryUserList());
+onMounted(() => queryRoleList());
 </script>

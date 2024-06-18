@@ -37,7 +37,7 @@ import { defineComponent, computed, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useAppStore, useUserStore } from '@/store';
 import NavBar from '@/components/navbar/index.vue';
-import Menu from '@/components/menu/index.vue';
+import Menu from '@/components/Menu/index.vue';
 import Footer from '@/components/footer/index.vue';
 import usePermission from '@/hooks/permission';
 import PageLayout from './PageLayout.vue';
