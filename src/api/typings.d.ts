@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-12 14:01:48
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-12 14:42:47
+ * @LastEditTime: 2024-06-19 10:31:31
  */
 import { Page } from '@/types/axios';
 
@@ -34,4 +34,13 @@ export interface UserParams extends Page {
   name?: string;
   deptId?: number;
   telephone?: string;
+}
+
+export interface UserData {
+  userId?: number;
+  loginName: string;
+  name: string;
+  telephone?: string;
+  deptId: number;
+  [key: string]: any;
 }

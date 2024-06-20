@@ -1,13 +1,13 @@
 /*
  * @Date: 2024-06-04 10:45:26
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-13 15:10:02
+ * @LastEditTime: 2024-06-19 17:27:18
  */
 import type { RouteRecordNormalized } from 'vue-router';
 import { UserState } from '@/store/modules/user/types';
 import { request } from '@/utils/request';
 import { Page } from '@/types/axios';
-import { DeptRes, LoginData, LoginRes, UserParams } from './typings';
+import { DeptRes, LoginData, LoginRes, UserData, UserParams } from '../typings';
 
 export function login(data: LoginData) {
   return request.post<LoginRes>({
@@ -22,7 +22,7 @@ export function logout() {
   });
 }
 
-export function isLogin() {
+export function getUserPermission() {
   return request.get({
     url: '/auth/login',
   });
@@ -66,5 +66,17 @@ export function getUserList(params: UserParams) {
   return request.get<Page<any>>({
     url: 'auth/user/list',
     params,
+  });
+}
+
+/**
+ * @name 新增用户
+ * @param {UserParams} data
+ * @method POST
+ */
+export function addUser(data: UserData) {
+  return request.post({
+    url: '/auth/user',
+    data,
   });
 }

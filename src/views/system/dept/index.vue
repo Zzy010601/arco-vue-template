@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 16:39:54
+ * @LastEditTime: 2024-06-19 15:25:18
 -->
 <template>
   <PageWrap v-slot="{ height }">
@@ -87,7 +87,7 @@
 <script setup lang="tsx">
 import { useUserStore } from '@/store';
 import { PaginationProps, type TableColumnData } from '@arco-design/web-vue';
-import { getUserList } from '@/api/user';
+import { getUserList } from '@/api/system/user';
 import { Pagination } from '@/types/global';
 import { useTableScroll } from '@/hooks';
 
@@ -214,6 +214,7 @@ const reset = () => {
     deptHierarchyArr: [],
     telephone: '',
   };
+  pagination.value.current = 1;
   queryUserList();
 };
 onMounted(() => queryUserList());

@@ -1,4 +1,5 @@
 // axios配置  可自行根据项目进行更改，只需更改该文件即可，其他文件可以不动
+import { Message } from '@arco-design/web-vue';
 import type { AxiosInstance } from 'axios';
 import isString from 'lodash/isString';
 import merge from 'lodash/merge';
@@ -9,6 +10,7 @@ import type { AxiosTransform, CreateAxiosOptions } from './AxiosTransform';
 import { formatRequestDate, joinTimestamp, setObjToUrlParams } from './utils';
 
 const env = import.meta.env.MODE || 'development';
+console.log('mode', import.meta.env.VITE_API_BASE_URL);
 
 // 如果是mock模式 或 没启用直连代理 就不配置host 会走本地Mock拦截 或 Vite 代理
 const host =
@@ -41,6 +43,7 @@ const transform: AxiosTransform = {
     // 错误的时候返回
     const { data } = res;
     if (!data) {
+      Message.error('接口请求错误');
       throw new Error('请求接口错误');
     }
 
@@ -53,6 +56,7 @@ const transform: AxiosTransform = {
       return data.data;
     }
 
+    Message.error('接口请求错误');
     throw new Error(`请求接口错误`);
   },
 

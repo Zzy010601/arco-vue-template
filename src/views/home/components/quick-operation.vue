@@ -1,3 +1,8 @@
+<!--
+ * @Date: 2024-06-17 13:47:18
+ * @LastEditors: 张子阳
+ * @LastEditTime: 2024-06-18 13:10:42
+-->
 <template>
   <a-card
     class="general-card"
@@ -9,7 +14,7 @@
       <a-link> 管理 </a-link>
     </template>
     <a-row :gutter="8">
-      <a-col v-for="link in links" :key="link" :span="8" class="wrapper">
+      <a-col v-for="link in links" :key="link.text" :span="8" class="wrapper">
         <div class="icon">
           <component :is="link.icon" />
         </div>
@@ -22,9 +27,7 @@
   </a-card>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 const links = [
   { text: '内容管理', icon: 'icon-file' },
   { text: '内容分析', icon: 'icon-storage' },
@@ -32,12 +35,4 @@ const links = [
   { text: '线上推广', icon: 'icon-mobile' },
   { text: '内容投放', icon: 'icon-fire' },
 ];
-
-export default defineComponent({
-  setup() {
-    return {
-      links,
-    };
-  },
-});
 </script>

@@ -6,8 +6,8 @@
   "author": "Zhangziyang",
   "license": "MIT",
   "scripts": {
-    "dev": "vite --config ./config/vite.config.dev.ts",
-    "build": "vue-tsc --noEmit && vite build --config ./config/vite.config.prod.ts",
+    "dev": "vite --config ./config/vite.config.dev.ts --mode development",
+    "build": "vue-tsc --noEmit && vite build --config ./config/vite.config.prod.ts --mode production",
     "lint-staged": "npx lint-staged",
     "prettier": "prettier --write ."
   },
@@ -46,6 +46,7 @@
     "@arco-plugins/vite-vue": "^1.4.5",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^12.0.1",
+    "@highlightjs/vue-plugin": "^2.1.0",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash": "^4.14.177",
     "@types/mockjs": "^1.0.4",
@@ -64,6 +65,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.7.0",
+    "highlight.js": "^11.9.0",
     "less": "^4.1.2",
     "lint-staged": "^11.2.6",
     "mockjs": "^1.1.0",
@@ -78,12 +80,12 @@
     "typescript": "^4.5.4",
     "unplugin-auto-import": "^0.17.6",
     "unplugin-vue-components": "^0.27.0",
-    "vite": "^2.6.4",
+    "vite": "^2.9.18",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-imagemin": "^0.6.1",
     "vite-svg-loader": "^3.1.0",
-    "vue-tsc": "^0.30.5"
+    "vue-tsc": "^0.30.6"
   },
   "resolutions": {
     "bin-wrapper": "npm:bin-wrapper-china",

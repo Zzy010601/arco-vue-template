@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-18 11:27:24
+ * @LastEditTime: 2024-06-19 15:27:46
 -->
 <template>
   <PageWrap v-slot="{ height }">
@@ -13,6 +13,11 @@
               <a-col :span="8">
                 <a-form-item label="菜单名称" field="title">
                   <a-input v-model="queryForm.title" placeholder="请输入菜单名称" allow-clear />
+                </a-form-item>
+              </a-col>
+              <a-col :span="8">
+                <a-form-item label="菜单名称" field="title">
+                  <a-range-picker v-model="queryForm.title" allow-clear />
                 </a-form-item>
               </a-col>
             </a-row>
@@ -61,18 +66,11 @@
       :visible="visible"
       :title="'新增菜单'"
       :width="600"
-      :render-to-body="false"
       unmount-on-close
       @ok="handleOk"
       @cancel="visible = false"
     >
-      <a-form
-        ref="formRef"
-        :model="editForm"
-        :rules="rules"
-        :label-col-props="{ span: 5 }"
-        :wrapper-col-props="{ span: 18 }"
-      >
+      <a-form ref="formRef" :model="editForm" :rules="rules" auto-label-width>
         <a-form-item label="菜单类型" field="menuType">
           <a-radio-group v-model="editForm.menuType" type="button">
             <a-radio :value="0">一级菜单</a-radio>
@@ -153,7 +151,7 @@
 <script setup lang="tsx">
 import { FieldRule, TableColumnData } from '@arco-design/web-vue';
 import { useTableScroll } from '@/hooks';
-import { getUserList } from '@/api/user';
+import { getUserList } from '@/api/system/user';
 
 const resetEditForm = () => ({
   // 菜单标题
@@ -296,9 +294,3 @@ const reset = () => {
 };
 onMounted(() => queryUserList());
 </script>
-
-<style lang="less" scoped>
-:deep(.arco-drawer-body) {
-  padding-top: 30px;
-}
-</style>

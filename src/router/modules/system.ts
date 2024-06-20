@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-11 17:01:49
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 16:58:37
+ * @LastEditTime: 2024-06-19 16:08:02
  */
 import { RouteRecordRaw } from 'vue-router';
 
@@ -44,11 +44,29 @@ export default {
       },
     },
     {
+      path: '/system/dict',
+      name: 'dict',
+      component: 'system/dict/index',
+      meta: {
+        title: '字典管理',
+        requiresAuth: true,
+      },
+    },
+    {
       path: '/system/dept',
       name: 'dept',
       component: 'system/dept/index',
       meta: {
         title: '部门管理',
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/system/gen',
+      name: 'gen',
+      component: 'system/gen/index',
+      meta: {
+        title: '代码生成',
         requiresAuth: true,
       },
     },

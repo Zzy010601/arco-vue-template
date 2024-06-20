@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 16:53:26
+ * @LastEditTime: 2024-06-19 15:26:46
 -->
 <template>
   <PageWrap v-slot="{ height }">
@@ -70,7 +70,7 @@
       </a-row>
       <a-divider style="margin-top: 0" />
       <a-space>
-        <a-button type="primary">
+        <a-button type="primary" @click="handleAdd">
           <template #icon>
             <icon-plus />
           </template>
@@ -89,30 +89,70 @@
       @page-change="pageChange"
       @page-size-change="pageSizeChange"
     />
+    <a-drawer
+      :visible="visible"
+      :title="editForm?.userId ? '编辑角色' : '新增角色'"
+      :width="550"
+      unmount-on-close
+      @before-ok="handleOk"
+      @cancel="visible = false"
+    >
+      <a-form ref="formRef" :model="editForm" :rules="rules" auto-label-width>
+        <a-form-item label="姓名" field="name">
+          <a-input v-model="editForm.name" placeholder="请输入姓名" />
+        </a-form-item>
+        <a-form-item label="用户名" field="loginName">
+          <a-input v-model="editForm.loginName" placeholder="请输入用户名" />
+        </a-form-item>
+        <a-form-item label="密码" field="password">
+          <a-input v-model="editForm.password" placeholder="请输入密码" :disabled="true" />
+        </a-form-item>
+        <a-form-item label="部门" field="deptHierarchyArr">
+          <a-cascader
+            v-model="editForm.deptHierarchyArr"
+            path-mode
+            :options="deptOptions"
+            placeholder="请选择部门"
+            :field-names="{
+              label: 'deptName',
+              value: 'deptId',
+              children: 'children',
+            }"
+            allow-search
+            allow-clear
+          />
+        </a-form-item>
+      </a-form>
+    </a-drawer>
   </PageWrap>
 </template>
 
 <script setup lang="tsx">
 import { useUserStore } from '@/store';
-import { PaginationProps, type TableColumnData } from '@arco-design/web-vue';
-import { getUserList } from '@/api/user';
+import { FieldRule, Message, PaginationProps, TableColumnData } from '@arco-design/web-vue';
+import { getUserList, addUser } from '@/api/system/user';
 import { Pagination } from '@/types/global';
 import { useTableScroll } from '@/hooks';
 
-// const show = ref<boolean>(false);
-
+const resetEditForm = () => ({
+  userId: undefined as number,
+  name: '',
+  loginName: '',
+  password: '',
+  deptHierarchyArr: [] as number[],
+});
 const userStore = useUserStore();
 const headRef = ref();
 const tableData = ref([]);
 const loading = ref<boolean>(false);
-const pagination = ref<Pagination>({
+const visible = ref<boolean>(false);
+const pagination = reactive<Pagination>({
   current: 1,
   pageSize: 10,
   total: 0,
 });
-const tooltip = ref<string>('');
 const paginationProps = computed<PaginationProps>(() => ({
-  ...pagination.value,
+  ...pagination,
   showPageSize: true,
   showTotal: true,
   showJumper: true,
@@ -126,6 +166,13 @@ const queryForm = ref({
   deptHierarchyArr: [],
   telephone: '',
 });
+const formRef = ref();
+const editForm = ref(resetEditForm());
+const rules = {
+  name: [{ required: true, message: '请输入姓名' }],
+  loginName: [{ required: true, message: '请输入用户名' }],
+  deptHierarchyArr: [{ required: true, message: '请选择部门' }],
+} as Record<string, FieldRule[]>;
 const columns = [
   {
     title: '用户名',
@@ -142,7 +189,6 @@ const columns = [
     ellipsis: true,
     tooltip: true,
     render: ({ record }) => {
-      tooltip.value = record.sysRoleList.map((item: any) => item.roleName).join(' ');
       return record.sysRoleList.map((item: any) => (
         <a-tag size="small" class="mr-1">
           {item.roleName}
@@ -177,7 +223,7 @@ const columns = [
     render: ({ record }) => (
       <a-space size="mini">
         <a-button type="text" size="mini">
-          修改
+          编辑
         </a-button>
         <a-button type="text" size="mini">
           重置密码
@@ -192,12 +238,12 @@ const queryUserList = () => {
     loading.value = true;
     getUserList({
       ...queryForm.value,
-      pageNum: pagination.value.current,
-      pageSize: pagination.value.pageSize,
+      pageNum: pagination.current,
+      pageSize: pagination.pageSize,
     })
       .then((res) => {
         tableData.value = res.list;
-        pagination.value.total = res.total;
+        pagination.total = res.total;
         resolve(res);
       })
       .finally(() => {
@@ -205,16 +251,43 @@ const queryUserList = () => {
       });
   });
 };
+const handleAdd = () => {
+  editForm.value = resetEditForm();
+  editForm.value.password = '123456';
+  visible.value = true;
+};
+const handleEdit = (record: any) => {
+  editForm.value = { ...record };
+  visible.value = true;
+};
+const handleOk = (done: (closed?: boolean) => void) => {
+  formRef.value
+    .validate()
+    .then(async () => {
+      // const data = {
+      //   ...editForm.value,
+      //   deptId: editForm.value.deptHierarchyArr.slice(-1)[0],
+      // };
+      // await addUser(data);
+      // Message.success('新增成功');
+      // queryUserList();
+      // visible.value = false;
+    })
+    .catch((errors: Error) => {
+      console.log('errors', errors);
+      done(false);
+    });
+};
 const pageChange = (page: number) => {
-  pagination.value.current = page;
+  pagination.current = page;
   queryUserList();
 };
 const pageSizeChange = (size: number) => {
-  pagination.value.pageSize = size;
+  pagination.pageSize = size;
   queryUserList();
 };
 const search = () => {
-  pagination.value.current = 1;
+  pagination.current = 1;
   queryUserList();
 };
 const reset = () => {
@@ -224,6 +297,7 @@ const reset = () => {
     deptHierarchyArr: [],
     telephone: '',
   };
+  pagination.current = 1;
   queryUserList();
 };
 onMounted(() => queryUserList());

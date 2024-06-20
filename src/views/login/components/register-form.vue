@@ -106,7 +106,7 @@ import useLoading from '@/hooks/useLoading';
 import useCountDown from '@/hooks/countdown';
 import { Message } from '@arco-design/web-vue';
 import useFormValidator from '@/hooks/form-validator';
-import { RegisterData } from '@/api/user';
+import { RegisterData } from '@/api/system/user';
 import logoIcon from '@/assets/icons/arco-logo.svg?url';
 import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
 import { sendEmailAuthCode } from '@/api/send-message';

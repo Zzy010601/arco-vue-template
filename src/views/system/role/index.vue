@@ -1,7 +1,7 @@
 <!--
  * @Date: 2024-06-11 16:54:31
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-18 10:30:54
+ * @LastEditTime: 2024-06-19 16:59:28
 -->
 <template>
   <PageWrap v-slot="{ height }">
@@ -92,14 +92,21 @@
       </a-form>
     </a-modal>
     <a-drawer v-model:visible="drawerVisible" title="角色权限配置" width="550px" unmount-on-close>
-      <a-scrollbar class="h-full overflow-auto"> </a-scrollbar>
+      <a-scrollbar class="h-full overflow-y-auto">
+        <a-tree
+          v-model:checked-keys="checkedKeys"
+          checkable
+          :data="treeData"
+          checked-strategy="child"
+        />
+      </a-scrollbar>
     </a-drawer>
   </PageWrap>
 </template>
 
 <script setup lang="tsx">
 import { PaginationProps, TableColumnData } from '@arco-design/web-vue';
-import { getUserList } from '@/api/user';
+import { getUserList } from '@/api/system/user';
 import { Pagination } from '@/types/global';
 import dayjs from 'dayjs';
 import { useTableScroll } from '@/hooks';
@@ -116,6 +123,8 @@ const resetEditForm = () => ({
 });
 const headRef = ref();
 const tableData = ref([]);
+const checkedKeys = ref<number[]>([]);
+const treeData = ref<any[]>([]);
 const loading = ref<boolean>(false);
 const modalVisible = ref<boolean>(false);
 const drawerVisible = ref<boolean>(false);
@@ -232,6 +241,7 @@ const reset = () => {
     roleName: '',
     roleCode: '',
   };
+  pagination.current = 1;
   queryRoleList();
 };
 onMounted(() => queryRoleList());

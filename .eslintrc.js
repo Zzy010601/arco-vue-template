@@ -48,6 +48,7 @@ module.exports = {
     'vue/require-direct-export': 1,
     'vue/multi-word-component-names': 0,
     'vue/no-unused-components': 0,
+    'vue/no-v-html': 0,
     // Allow @ts-ignore comment
     '@typescript-eslint/ban-ts-comment': 0,
     '@typescript-eslint/no-unused-vars': 0,

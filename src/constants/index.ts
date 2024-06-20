@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-07 13:12:24
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 13:39:46
+ * @LastEditTime: 2024-06-19 16:48:30
  */
 export const NOT_FOUND = '../views/notFound/index.vue';
 
@@ -33,3 +33,9 @@ export enum RoleEnum {
   // 全部授权
   All = '*',
 }
+
+// 文件MIME类型
+export const fileMimeType = {
+  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  zip: 'application/zip',
+};

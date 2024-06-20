@@ -1,13 +1,14 @@
 /*
  * @Date: 2024-06-14 16:19:44
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-18 08:56:45
+ * @LastEditTime: 2024-06-19 10:19:00
  */
 import { useUserStore } from '@/store';
 import { LocationQueryRaw, Router } from 'vue-router';
-import { isLogin } from '@/utils/auth';
+import { getUserPermission } from '@/api/system/user';
 import NProgress from 'nprogress';
-import { addAsyncRoutes } from '@/utils';
+import { addAsyncRoutes, getSideBarMenu } from '@/utils';
+import { isExpired } from '@/utils/auth';
 import { asyncRoutes } from './modules';
 
 export const useRouterGuard = (router: Router) => {
@@ -17,10 +18,15 @@ export const useRouterGuard = (router: Router) => {
     const userStore = useUserStore();
     if (to.name === 'login') {
       next();
-    } else if (isLogin()) {
+    } else if (!isExpired()) {
       try {
         if (!userStore.menuList.length) {
+          // const res = await getUserPermission();
+          // 获取部门信息
+          await userStore.getDepartList();
           // TODO: 获取用户权限
+          // const menu = getSideBarMenu(res.menu);
+          // const menuList = addAsyncRoutes(menu, router);
           const routes = await asyncRoutes();
           const menuList = addAsyncRoutes(routes, router);
           userStore.setInfo({ menuList });

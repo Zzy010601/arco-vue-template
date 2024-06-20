@@ -7,8 +7,8 @@ import Cookies from 'js-cookie';
 
 const TOKEN_KEY = 'contract';
 
-const isLogin = () => {
-  return !!Cookies.get(TOKEN_KEY);
+const isExpired = () => {
+  return !Cookies.get(TOKEN_KEY);
 };
 
 const getToken = () => {
@@ -23,4 +23,4 @@ const clearToken = () => {
   Cookies.remove(TOKEN_KEY);
 };
 
-export { isLogin, getToken, setToken, clearToken };
+export { isExpired, getToken, setToken, clearToken };

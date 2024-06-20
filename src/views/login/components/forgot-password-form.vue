@@ -76,7 +76,7 @@ import useLoading from '@/hooks/useLoading';
 import useCountDown from '@/hooks/countdown';
 import { Message } from '@arco-design/web-vue';
 import useFormValidator from '@/hooks/form-validator';
-import { ResetPasswordData } from '@/api/user';
+import { ResetPasswordData } from '@/api/system/user';
 import logoIcon from '@/assets/icons/arco-logo.svg?url';
 import { ValidatedError } from '@arco-design/web-vue/es/form/interface';
 import { sendEmailAuthCode } from '@/api/send-message';

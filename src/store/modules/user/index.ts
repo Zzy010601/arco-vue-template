@@ -1,7 +1,7 @@
 /*
  * @Date: 2024-06-07 11:09:10
  * @LastEditors: 张子阳
- * @LastEditTime: 2024-06-17 13:36:46
+ * @LastEditTime: 2024-06-19 17:00:41
  */
 import { defineStore } from 'pinia';
 import {
@@ -9,12 +9,12 @@ import {
   login as userLogin,
   logout as userLogout,
   getDeptList as userDeparts,
-} from '@/api/user';
+} from '@/api/system/user';
 import { LoginData } from '@/api/typings';
 import { setToken, clearToken } from '@/utils/auth';
 import { delEmptyChild } from '@/utils';
 import boyAvatar from '@/assets/svg/avatar-boy.svg?url';
-import { UserState } from './types';
+import { DictItem, UserState } from './types';
 
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
@@ -28,8 +28,8 @@ export const useUserStore = defineStore('user', {
     departList: [],
     role: undefined,
     menuList: [],
+    dict: {},
   }),
-
   getters: {
     userInfo(state: UserState): UserState {
       return { ...state };
@@ -50,6 +50,10 @@ export const useUserStore = defineStore('user', {
     // 重置用户的信息
     resetInfo() {
       this.$reset();
+    },
+
+    getDictByKey(key: string): DictItem[] {
+      return this.dict[key];
     },
 
     // 获取用户的信息

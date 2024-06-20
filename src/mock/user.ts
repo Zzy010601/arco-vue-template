@@ -2,7 +2,7 @@ import Mock from 'mockjs';
 import setupMock, { successResponseWrap, failResponseWrap } from '@/utils/setup-mock';
 
 import { MockParams } from '@/types/mock';
-import { isLogin } from '@/utils/auth';
+import { isExpired } from '@/utils/auth';
 import { RoleEnum } from '@/constants';
 import boyAvatar from '@/assets/svg/avatar-boy.svg?url';
 
@@ -13,7 +13,7 @@ setupMock({
 
     // 用户信息
     Mock.mock(new RegExp('/api/user/info'), () => {
-      if (isLogin()) {
+      if (!isExpired()) {
         const role = window.localStorage.getItem('userRole') || 'admin';
         return successResponseWrap({
           name: '王立群',

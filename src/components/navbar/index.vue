@@ -4,7 +4,7 @@
       <a-space>
         <img class="navbar-logo" :src="logImage" alt="logo" />
         <a-typography-title :style="{ margin: 0, fontSize: '18px' }" :heading="5">
-          Arco Design Web
+          Arco Vue Template
         </a-typography-title>
       </a-space>
     </div>
@@ -88,8 +88,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+<script setup lang="ts">
 import { Message } from '@arco-design/web-vue';
 import { useDark, useToggle } from '@vueuse/core';
 import { useAppStore, useUserStore } from '@/store';
@@ -97,69 +96,50 @@ import useUser from '@/hooks/user';
 import logImage from '@/assets/icons/arco-logo.svg?url';
 import MessageBox from '../message-box/index.vue';
 
-export default defineComponent({
-  components: {
-    MessageBox,
-  },
-  setup() {
-    const appStore = useAppStore();
-    const userStore = useUserStore();
-    const { logout } = useUser();
-    const avatar = computed(() => {
-      return userStore.avatar;
-    });
-    const theme = computed(() => {
-      return appStore.theme;
-    });
-    const isDark = useDark({
-      selector: 'body',
-      attribute: 'arco-theme',
-      valueDark: 'dark',
-      valueLight: 'light',
-      storageKey: 'arco-theme',
-      onChanged(dark: boolean) {
-        appStore.toggleTheme(dark);
-      },
-    });
-    const toggleTheme = useToggle(isDark);
-    const setVisible = () => {
-      appStore.updateSettings({ globalSettings: true });
-    };
-    const refBtn = ref();
-    const triggerBtn = ref();
-    const setPopoverVisible = () => {
-      const event = new MouseEvent('click', {
-        view: window,
-        bubbles: true,
-        cancelable: true,
-      });
-      refBtn.value.dispatchEvent(event);
-    };
-    const handleLogout = () => {
-      logout();
-    };
-    const setDropDownVisible = () => {
-      const event = new MouseEvent('click', {
-        view: window,
-        bubbles: true,
-        cancelable: true,
-      });
-      triggerBtn.value.dispatchEvent(event);
-    };
-    return {
-      theme,
-      avatar,
-      toggleTheme,
-      setVisible,
-      setPopoverVisible,
-      refBtn,
-      triggerBtn,
-      handleLogout,
-      setDropDownVisible,
-      logImage,
-    };
+const appStore = useAppStore();
+const userStore = useUserStore();
+const { logout } = useUser();
+const avatar = computed(() => {
+  return userStore.avatar;
+});
+const theme = computed(() => {
+  return appStore.theme;
+});
+const isDark = useDark({
+  selector: 'body',
+  attribute: 'arco-theme',
+  valueDark: 'dark',
+  valueLight: 'light',
+  storageKey: 'arco-theme',
+  onChanged(dark: boolean) {
+    appStore.toggleTheme(dark);
   },
 });
+const toggleTheme: (value: any) => void = useToggle(isDark);
+const setVisible = () => {
+  appStore.updateSettings({ globalSettings: true });
+};
+const refBtn = ref();
+const triggerBtn = ref();
+const setPopoverVisible = () => {
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
+  refBtn.value.dispatchEvent(event);
+};
+const handleLogout = () => {
+  logout();
+};
+const setDropDownVisible = () => {
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
+  triggerBtn.value.dispatchEvent(event);
+};
 </script>
 
 <style scoped lang="less">
